@@ -6,7 +6,25 @@ namespace Multitool.Views;
 
 public partial class GeneratorView : UserControl
 {
-    public GeneratorView() => InitializeComponent();
+    public GeneratorView()
+    {
+        InitializeComponent();
+        RefreshTexts();
+        Lang.Changed += RefreshTexts;
+    }
+
+    private void RefreshTexts()
+    {
+        TxtTitle.Text = Lang.T("v_gen_title");
+        GrpPass.Header = Lang.T("v_gen_pass");
+        ChkUpper.Content = Lang.T("v_gen_upper");
+        ChkDigits.Content = Lang.T("v_gen_digits");
+        ChkSym.Content = Lang.T("v_gen_symbols");
+        BtnPass.Content = Lang.T("v_gen_generate");
+        BtnGuid.Content = Lang.T("v_gen_new_guid");
+        BtnEnc.Content = Lang.T("v_gen_encode");
+        BtnDec.Content = Lang.T("v_gen_decode");
+    }
 
     private void BtnPass_Click(object sender, RoutedEventArgs e)
     {

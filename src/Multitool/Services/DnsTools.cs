@@ -9,7 +9,7 @@ public static class DnsTools
     {
         domain = domain.Trim();
         if (string.IsNullOrWhiteSpace(domain))
-            return "Domaine vide.";
+            return Lang.T("svc_ns_empty");
         recordType = recordType.Trim().ToUpperInvariant();
 
         // Outil connu Windows : nslookup
@@ -19,7 +19,7 @@ public static class DnsTools
         }
         catch (Exception ex)
         {
-            return $"Erreur nslookup: {ex.Message}";
+            return $"{Lang.T("svc_ns_err")}{ex.Message}";
         }
     }
 
@@ -27,14 +27,14 @@ public static class DnsTools
     {
         ip = ip.Trim();
         if (string.IsNullOrWhiteSpace(ip))
-            return "IP vide.";
+            return Lang.T("svc_ns_ipempty");
         try
         {
             return await RunAsync("nslookup", ip, 15000);
         }
         catch (Exception ex)
         {
-            return $"Erreur nslookup: {ex.Message}";
+            return $"{Lang.T("svc_ns_err")}{ex.Message}";
         }
     }
 
@@ -50,13 +50,13 @@ public static class DnsTools
             StandardErrorEncoding = Encoding.UTF8,
         };
         using var p = Process.Start(psi);
-        if (p is null) return "Impossible de lancer nslookup.";
+        if (p is null) return Lang.T("svc_ns_run");
         var outTask = p.StandardOutput.ReadToEndAsync();
         var errTask = p.StandardError.ReadToEndAsync();
         if (await Task.WhenAny(p.WaitForExitAsync(), Task.Delay(timeoutMs)) is not Task t || !p.HasExited)
         {
             try { p.Kill(); } catch { }
-            return "Timeout nslookup (DNS injoignable ?).";
+            return Lang.T("svc_ns_timeout");
         }
         string stdout = await outTask;
         string stderr = await errTask;

@@ -20,11 +20,18 @@ public partial class MainWindow : Window
 
     private void RefreshTexts()
     {
-        ExpNetwork.Header = Lang.T("menu_network");
+        ExpInfo.Header = Lang.T("menu_info");
+        ExpVuln.Header = Lang.T("menu_vuln");
+        ExpWeb.Header = Lang.T("menu_web");
+        ExpPass.Header = Lang.T("menu_pass");
+        ExpWifi.Header = Lang.T("menu_wifi");
+        ExpSniff.Header = Lang.T("menu_sniff");
+        ExpExploit.Header = Lang.T("menu_exploit");
+        ExpSocial.Header = Lang.T("menu_social");
         ExpSystem.Header = Lang.T("menu_system");
-        ExpOsint.Header = Lang.T("menu_osint");
         ExpGen.Header = Lang.T("menu_generators");
         BtnSettings.Content = "⚙️  " + Lang.T("menu_options");
+        BtnSecHub.Content = "🧰  " + Lang.T("nav_hub");
         BtnNetwork.Content = Lang.T("nav_base");
         BtnNmapScan.Content = Lang.T("nav_nmap");
         BtnDns.Content = Lang.T("nav_dns");
@@ -56,7 +63,6 @@ public partial class MainWindow : Window
         TxtStatus.Foreground = ok
             ? (Brush)FindResource("GreenFg")
             : (Brush)FindResource("RedFg");
-        // Refresh if language changed later
         Lang.Changed += () => ApplyStatus(tools);
     }
 
@@ -74,14 +80,38 @@ public partial class MainWindow : Window
             nameof(BtnSystem) => new SystemView(),
             nameof(BtnOsint) => new OsintView(),
             nameof(BtnGenerator) => new GeneratorView(),
+            nameof(BtnSecHub) => new SecurityView(),
             nameof(BtnSettings) => new SettingsView(),
+            nameof(BtnSecAmass) => new SecurityView("amass"),
+            nameof(BtnSecHarvester) => new SecurityView("harvester"),
+            nameof(BtnSecNessus) => new SecurityView("nessus"),
+            nameof(BtnSecNikto) => new SecurityView("nikto"),
+            nameof(BtnSecBurp) => new SecurityView("burp"),
+            nameof(BtnSecSqlmap) => new SecurityView("sqlmap"),
+            nameof(BtnSecGobuster) => new SecurityView("gobuster"),
+            nameof(BtnSecFfuf) => new SecurityView("ffuf"),
+            nameof(BtnSecJohn) => new SecurityView("john"),
+            nameof(BtnSecHashcat) => new SecurityView("hashcat"),
+            nameof(BtnSecHydra) => new SecurityView("hydra"),
+            nameof(BtnSecAircrack) => new SecurityView("aircrack"),
+            nameof(BtnSecWireshark) => new SecurityView("wireshark"),
+            nameof(BtnSecBettercap) => new SecurityView("bettercap"),
+            nameof(BtnSecResponder) => new SecurityView("responder"),
+            nameof(BtnSecNcat) => new SecurityView("ncat"),
+            nameof(BtnSecMetasploit) => new SecurityView("metasploit"),
+            nameof(BtnSecMaltego) => new SecurityView("maltego"),
+            nameof(BtnSecSherlock) => new SecurityView("sherlock"),
             _ => MainContent.Content
         };
     }
 
     private void Highlight(Button active)
     {
-        foreach (var b in new[] { BtnNetwork, BtnNmapScan, BtnDns, BtnNetExtra, BtnSystem, BtnOsint, BtnGenerator, BtnSettings })
+        foreach (var b in new Button[] { BtnNetwork, BtnNmapScan, BtnDns, BtnNetExtra, BtnSystem, BtnOsint,
+                     BtnGenerator, BtnSecHub, BtnSettings, BtnSecAmass, BtnSecHarvester, BtnSecNessus,
+                     BtnSecNikto, BtnSecBurp, BtnSecSqlmap, BtnSecGobuster, BtnSecFfuf, BtnSecJohn,
+                     BtnSecHashcat, BtnSecHydra, BtnSecAircrack, BtnSecWireshark, BtnSecBettercap,
+                     BtnSecResponder, BtnSecNcat, BtnSecMetasploit, BtnSecMaltego, BtnSecSherlock })
         {
             b.Background = Brushes.Transparent;
             b.Foreground = (Brush)FindResource("FgSub");

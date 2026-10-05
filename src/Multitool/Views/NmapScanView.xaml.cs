@@ -11,7 +11,22 @@ public partial class NmapScanView : UserControl
     public NmapScanView()
     {
         InitializeComponent();
+        RefreshTexts();
+        Lang.Changed += RefreshTexts;
         Loaded += async (_, _) => await RefreshStatusAsync();
+    }
+
+    private void RefreshTexts()
+    {
+        TxtSub.Text = Lang.T("v_nmap_sub");
+        GrpState.Header = Lang.T("v_nmap_state");
+        BtnRecheck.Content = Lang.T("v_nmap_check");
+        BtnWinget.Content = Lang.T("v_nmap_winget");
+        BtnDownload.Content = Lang.T("v_nmap_dl");
+        GrpScan.Header = Lang.T("v_nmap_scan_grp");
+        BtnQuick.Content = Lang.T("v_nmap_quick");
+        BtnPorts.Content = Lang.T("v_nmap_ports");
+        BtnFull.Content = Lang.T("v_nmap_full");
     }
 
     private async Task RefreshStatusAsync()
@@ -24,7 +39,7 @@ public partial class NmapScanView : UserControl
     private void ApplyStatus(bool ok, string detail)
     {
         DotStatus.Fill = ok ? Brushes.LimeGreen : Brushes.Red;
-        TxtNmapStatus.Text = ok ? "● INSTALLÉ — prêt à scanner" : "● NON INSTALLÉ";
+        TxtNmapStatus.Text = ok ? Lang.T("v_nmap_installed") : Lang.T("v_nmap_missing");
         TxtNmapStatus.Foreground = ok
             ? new SolidColorBrush(Color.FromRgb(0x3F, 0xB9, 0x50))
             : new SolidColorBrush(Color.FromRgb(0xF8, 0x51, 0x49));
@@ -38,7 +53,7 @@ public partial class NmapScanView : UserControl
     private async void BtnWinget_Click(object sender, RoutedEventArgs e)
     {
         BtnWinget.IsEnabled = false;
-        OutInstall.Text = "Installation via winget... (peut durer plusieurs minutes)";
+        OutInstall.Text = Lang.T("v_nmap_installing");
         OutInstall.Text = await ToolInstaller.InstallNmapViaWingetAsync();
         await RefreshStatusAsync();
         BtnWinget.IsEnabled = true;
@@ -48,7 +63,7 @@ public partial class NmapScanView : UserControl
     {
         BtnDownload.IsEnabled = false;
         DlProgress.Value = 0;
-        OutInstall.Text = $"Téléchargement {ToolInstaller.NmapSetupUrl} ...";
+        OutInstall.Text = $"{Lang.T("v_nmap_downloading")} {ToolInstaller.NmapSetupUrl} ...";
         var prog = new Progress<double>(v => DlProgress.Value = v);
         string result = await ToolInstaller.DownloadNmapSetupAsync(prog);
         OutInstall.Text = File.Exists(result) ? ToolInstaller.LaunchInstaller(result) : result;
@@ -67,7 +82,30 @@ public partial class NmapScanView : UserControl
 
     private async Task Run(Func<Task<string>> fn)
     {
-        OutNmap.Text = "Scan en cours... (peut durer 1-2 min)";
+        OutNmap.Text = Lang.T("v_nmap_scanning");
         OutNmap.Text = await fn();
+    }
+
+    private void BtnExport_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            if (string.IsNullOrWhiteSpace(OutNmap.Text))
+            {
+                TxtExport.Text = Lang.T("v_nmap_export_empty");
+                return;
+            }
+            Directory.CreateDirectory(AppPaths.DataDir);
+            string target = AppPaths.SafeFileName(string.IsNullOrWhiteSpace(InTarget.Text) ? "cible" : InTarget.Text);
+            string file = Path.Combine(AppPaths.DataDir, $"nmap-{target}-{DateTime.Now:yyyyMMdd-HHmmss}.txt");
+            File.WriteAllText(file, $"FoxMultitool - nmap {InTarget.Text} - {DateTime.Now:yyyy-MM-dd HH:mm:ss}\n\n{OutNmap.Text}");
+            TxtExport.Text = $"{Lang.T("v_nmap_exported")}{file}";
+            Logger.Scan("nmap", InTarget.Text, file);
+        }
+        catch (Exception ex)
+        {
+            TxtExport.Text = $"{Lang.T("svc_error")}{ex.Message}";
+            Logger.Error($"Export nmap: {ex.Message}");
+        }
     }
 }

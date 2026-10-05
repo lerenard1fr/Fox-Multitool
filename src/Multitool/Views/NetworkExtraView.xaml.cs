@@ -6,11 +6,23 @@ namespace Multitool.Views;
 
 public partial class NetworkExtraView : UserControl
 {
-    public NetworkExtraView() => InitializeComponent();
+    public NetworkExtraView()
+    {
+        InitializeComponent();
+        RefreshTexts();
+        Lang.Changed += RefreshTexts;
+    }
+
+    private void RefreshTexts()
+    {
+        TxtTitle.Text = Lang.T("v_next_title");
+        TxtSub.Text = Lang.T("v_next_sub");
+        BtnWifi.Content = Lang.T("v_next_wifi");
+    }
 
     private async void BtnTracert_Click(object sender, RoutedEventArgs e)
     {
-        OutTracert.Text = "Traceroute en cours... (peut durer ~1 min)";
+        OutTracert.Text = Lang.T("v_next_tracing");
         OutTracert.Text = await NetExtraTools.TracertAsync(InTracert.Text);
     }
 

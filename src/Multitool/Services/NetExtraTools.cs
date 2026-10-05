@@ -36,7 +36,7 @@ public static class NetExtraTools
                 StandardErrorEncoding = Encoding.UTF8,
             };
             using var p = Process.Start(psi);
-            if (p is null) return $"Impossible de lancer {file}.";
+            if (p is null) return $"{string.Format(Lang.T("svc_tool_err"), file)}{Lang.T("svc_unavailable")}";
             var outTask = p.StandardOutput.ReadToEndAsync();
             var errTask = p.StandardError.ReadToEndAsync();
             using var cts = new CancellationTokenSource(timeoutMs);
@@ -52,7 +52,7 @@ public static class NetExtraTools
         }
         catch (Exception ex)
         {
-            return $"Erreur {file}: {ex.Message}";
+            return $"{string.Format(Lang.T("svc_tool_err"), file)}{ex.Message}";
         }
     }
 }

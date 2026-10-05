@@ -7,7 +7,7 @@
             <StackPanel Margin="8">
                 <StackPanel Orientation="Horizontal">
                     <TextBox x:Name="InIp" Width="200" Text="8.8.8.8"/>
-                    <Button Style="{StaticResource ActionButton}" Content="Chercher" Margin="8,0,0,0" Width="80" Click="BtnIp_Click"/>
+                    <Button Style="{StaticResource ActionButton}" x:Name="BtnIp" Content="Search" Margin="8,0,0,0" Width="80" Click="BtnIp_Click"/>
                 </StackPanel>
                 <TextBox x:Name="OutIp" Margin="0,8,0,0" Height="220" IsReadOnly="True" AcceptsReturn="True"/>
             </StackPanel>

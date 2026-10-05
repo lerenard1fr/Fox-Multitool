@@ -1,0 +1,14 @@
+<UserControl x:Class="Multitool.Views.SecurityView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <StackPanel>
+        <TextBlock x:Name="TxtTitle" Text="Security Toolbox" FontSize="22" FontWeight="Bold" Margin="0,0,0,4"/>
+        <TextBlock x:Name="TxtSub" Text="Known tools: detection, guided install, launch. Audit your own systems only."
+                   FontSize="12" Foreground="#8B949E" Margin="0,0,0,12" TextWrapping="Wrap"/>
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
+            <TextBox x:Name="InSearch" Width="260" TextChanged="InSearch_Changed"/>
+            <Button x:Name="BtnDetect" Content="↻ Detect" Style="{StaticResource SecondaryButton}" Width="110" Margin="8,0,0,0" Click="BtnDetect_Click"/>
+        </StackPanel>
+        <StackPanel x:Name="CardsHost"/>
+    </StackPanel>
+</UserControl>

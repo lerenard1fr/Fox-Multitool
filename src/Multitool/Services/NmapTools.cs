@@ -10,6 +10,8 @@ public static class NmapTools
 
     public static string? FindNmap()
     {
+        // 1. Portable : tools/nmap/nmap.exe a cote de l'exe (prioritaire)
+        if (File.Exists(AppPaths.PortableNmap)) return AppPaths.PortableNmap;
         string[] candidates =
         [
             "nmap",
@@ -50,7 +52,7 @@ public static class NmapTools
     {
         var nmap = FindNmap();
         if (nmap is null)
-            return $"Nmap non installé.\nTélécharge-le ici : {DownloadUrl}\nLe scan natif reste disponible dans l'onglet Réseau.";
+            return string.Format(Lang.T("svc_nonmap_ver"), DownloadUrl);
         return await RunAsync($"{nmap}", "--version", 10000);
     }
 
@@ -65,13 +67,13 @@ public static class NmapTools
     {
         target = target.Trim();
         if (string.IsNullOrWhiteSpace(target))
-            return "Cible vide (IP, domaine ou CIDR : ex. 192.168.1.0/24).";
+            return Lang.T("svc_empty_target");
         // Garde-fou basique anti-injection
         if (target.Any(c => c is '&' or '|' or ';' or '$' or '`'))
-            return "Cible invalide.";
+            return Lang.T("svc_bad_target");
         var nmap = FindNmap();
         if (nmap is null)
-            return $"Nmap non installé.\nInstalle-le : {DownloadUrl}\nPuis relance ce scan.\n\nFallback : utilise l'onglet Réseau > Scan ports communs.";
+            return string.Format(Lang.T("svc_nonmap"), DownloadUrl);
         return await RunAsync(nmap, $"{args} {target}", 120000);
     }
 
@@ -89,7 +91,7 @@ public static class NmapTools
                 StandardErrorEncoding = Encoding.UTF8,
             };
             using var p = Process.Start(psi);
-            if (p is null) return "Impossible de lancer nmap.";
+            if (p is null) return Lang.T("svc_nmap_run");
             var outTask = p.StandardOutput.ReadToEndAsync();
             var errTask = p.StandardError.ReadToEndAsync();
             using var cts = new CancellationTokenSource(timeoutMs);
@@ -100,7 +102,7 @@ public static class NmapTools
             catch (OperationCanceledException)
             {
                 try { p.Kill(); } catch { }
-                return "Timeout (scan trop long, réduis la cible ou les options).";
+                return Lang.T("svc_timeout");
             }
             string stdout = await outTask;
             string stderr = await errTask;
@@ -112,7 +114,7 @@ public static class NmapTools
         }
         catch (Exception ex)
         {
-            return $"Erreur nmap: {ex.Message}";
+            return $"{Lang.T("svc_run_err")}{ex.Message}";
         }
     }
 }

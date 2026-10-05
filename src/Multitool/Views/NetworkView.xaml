@@ -2,10 +2,10 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <StackPanel>
-        <TextBlock Text="Réseau" FontSize="20" FontWeight="Bold" Margin="0,0,0,12"/>
-        <GroupBox Header="Mes IP">
+        <TextBlock x:Name="TxtTitle" Text="Network" FontSize="20" FontWeight="Bold" Margin="0,0,0,12"/>
+        <GroupBox x:Name="GrpIps" Header="My IPs">
             <StackPanel Margin="8">
-                <Button Style="{StaticResource ActionButton}" x:Name="BtnIps" Content="Afficher IP locale + publique" Width="220" HorizontalAlignment="Left" Click="BtnIps_Click"/>
+                <Button Style="{StaticResource ActionButton}" x:Name="BtnIps" Content="Show local + public IP" Width="220" HorizontalAlignment="Left" Click="BtnIps_Click"/>
                 <TextBox x:Name="OutIps" Margin="0,8,0,0" Height="60" IsReadOnly="True" TextWrapping="Wrap" AcceptsReturn="True"/>
             </StackPanel>
         </GroupBox>
@@ -19,15 +19,15 @@
         <GroupBox Header="DNS Lookup">
             <StackPanel Margin="8" Orientation="Horizontal">
                 <TextBox x:Name="InDns" Width="200" Text="google.com"/>
-                <Button Style="{StaticResource ActionButton}" Content="Résoudre" Margin="8,0,0,0" Width="80" Click="BtnDns_Click"/>
+                <Button Style="{StaticResource ActionButton}" x:Name="BtnDns" Content="Resolve" Margin="8,0,0,0" Width="80" Click="BtnDns_Click"/>
                 <TextBox x:Name="OutDns" Margin="8,0,0,0" Width="350" Height="60" IsReadOnly="True" AcceptsReturn="True"/>
             </StackPanel>
         </GroupBox>
-        <GroupBox Header="Scan ports communs">
+        <GroupBox x:Name="GrpScan" Header="Common ports scan">
             <StackPanel Margin="8">
                 <StackPanel Orientation="Horizontal">
                     <TextBox x:Name="InScan" Width="200" Text="127.0.0.1"/>
-                    <Button Style="{StaticResource ActionButton}" Content="Scanner" Margin="8,0,0,0" Width="80" Click="BtnScan_Click"/>
+                    <Button Style="{StaticResource ActionButton}" x:Name="BtnScan" Content="Scan" Margin="8,0,0,0" Width="80" Click="BtnScan_Click"/>
                 </StackPanel>
                 <TextBox x:Name="OutScan" Margin="0,8,0,0" Height="120" IsReadOnly="True" AcceptsReturn="True"/>
             </StackPanel>

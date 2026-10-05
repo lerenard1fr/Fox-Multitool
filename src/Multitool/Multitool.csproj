@@ -10,6 +10,11 @@
     <Product>Fox Multitool</Product>
     <Title>Fox Multitool</Title>
     <Version>0.5.0</Version>
+    <ApplicationIcon>Assets\fox.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\fox.png" />
+  </ItemGroup>
 
 </Project>

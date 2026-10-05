@@ -15,17 +15,17 @@ public static class OsintTools
             using var doc = JsonDocument.Parse(json);
             var r = doc.RootElement;
             if (r.GetProperty("status").GetString() != "success")
-                return $"Échec: {r.GetProperty("message").GetString()}";
+                return $"{Lang.T("ip_fail")}{r.GetProperty("message").GetString()}";
             return $"IP: {r.GetProperty("query").GetString()}\n" +
-                   $"Pays: {r.GetProperty("country").GetString()}\n" +
-                   $"Région: {r.GetProperty("regionName").GetString()}\n" +
-                   $"Ville: {r.GetProperty("city").GetString()} {r.GetProperty("zip").GetString()}\n" +
+                   $"{Lang.T("ip_country")}: {r.GetProperty("country").GetString()}\n" +
+                   $"{Lang.T("ip_region")}: {r.GetProperty("regionName").GetString()}\n" +
+                   $"{Lang.T("ip_city")}: {r.GetProperty("city").GetString()} {r.GetProperty("zip").GetString()}\n" +
                    $"Lat/Lon: {r.GetProperty("lat")}, {r.GetProperty("lon")}\n" +
                    $"Timezone: {r.GetProperty("timezone").GetString()}\n" +
                    $"ISP: {r.GetProperty("isp").GetString()}\n" +
                    $"Org: {r.GetProperty("org").GetString()}\n" +
                    $"AS: {r.GetProperty("as").GetString()}";
         }
-        catch (Exception ex) { return $"Erreur: {ex.Message}"; }
+        catch (Exception ex) { return $"{Lang.T("svc_error")}{ex.Message}"; }
     }
 }

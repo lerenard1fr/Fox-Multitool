@@ -2,7 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Fox Multitool" Height="700" Width="1080"
-        WindowStartupLocation="CenterScreen"
+        WindowStartupLocation="CenterScreen" Icon="Assets/fox.png"
         Background="{DynamicResource BgMain}" Foreground="{DynamicResource FgMain}">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -29,26 +29,70 @@
                     <Separator Margin="0,12"/>
                 </StackPanel>
                 <StackPanel DockPanel.Dock="Bottom" Margin="0,8,0,0">
+                    <Button x:Name="BtnSecHub" Content="🧰  All Tools" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
                     <Button x:Name="BtnSettings" Content="⚙️  Options" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
                 </StackPanel>
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel>
-                        <Expander x:Name="ExpNetwork" Header="🌐  Network" IsExpanded="True">
+                        <Expander x:Name="ExpInfo" Header="🔎  Information Gathering" IsExpanded="True">
                             <StackPanel>
                                 <Button x:Name="BtnNetwork" Content="Base IP / Ping / Ports" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
                                 <Button x:Name="BtnNmapScan" Content="Nmap Scan" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
                                 <Button x:Name="BtnDns" Content="DNS / NS Lookup" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
                                 <Button x:Name="BtnNetExtra" Content="Traceroute / ARP / Netstat" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
+                                <Button x:Name="BtnOsint" Content="IP Lookup" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
+                                <Button x:Name="BtnSecAmass" Content="Amass" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
+                                <Button x:Name="BtnSecHarvester" Content="theHarvester" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
+                            </StackPanel>
+                        </Expander>
+                        <Expander x:Name="ExpVuln" Header="🛡️  Vulnerability Analysis" IsExpanded="False">
+                            <StackPanel>
+                                <Button x:Name="BtnSecNessus" Content="Nessus" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
+                                <Button x:Name="BtnSecNikto" Content="Nikto" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
+                            </StackPanel>
+                        </Expander>
+                        <Expander x:Name="ExpWeb" Header="🌍  Web Application Analysis" IsExpanded="False">
+                            <StackPanel>
+                                <Button x:Name="BtnSecBurp" Content="Burp Suite" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
+                                <Button x:Name="BtnSecSqlmap" Content="sqlmap" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
+                                <Button x:Name="BtnSecGobuster" Content="Gobuster" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
+                                <Button x:Name="BtnSecFfuf" Content="ffuf" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
+                            </StackPanel>
+                        </Expander>
+                        <Expander x:Name="ExpPass" Header="🔑  Password Attacks" IsExpanded="False">
+                            <StackPanel>
+                                <Button x:Name="BtnSecJohn" Content="John the Ripper" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
+                                <Button x:Name="BtnSecHashcat" Content="Hashcat" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
+                                <Button x:Name="BtnSecHydra" Content="Hydra" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
+                            </StackPanel>
+                        </Expander>
+                        <Expander x:Name="ExpWifi" Header="📡  Wireless Attacks" IsExpanded="False">
+                            <StackPanel>
+                                <Button x:Name="BtnSecAircrack" Content="Aircrack-ng" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
+                            </StackPanel>
+                        </Expander>
+                        <Expander x:Name="ExpSniff" Header="👃  Sniffing &amp; Spoofing" IsExpanded="False">
+                            <StackPanel>
+                                <Button x:Name="BtnSecWireshark" Content="Wireshark" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
+                                <Button x:Name="BtnSecBettercap" Content="Bettercap" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
+                                <Button x:Name="BtnSecResponder" Content="Responder" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
+                                <Button x:Name="BtnSecNcat" Content="Netcat (ncat)" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
+                            </StackPanel>
+                        </Expander>
+                        <Expander x:Name="ExpExploit" Header="💥  Exploitation Tools" IsExpanded="False">
+                            <StackPanel>
+                                <Button x:Name="BtnSecMetasploit" Content="Metasploit" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
+                            </StackPanel>
+                        </Expander>
+                        <Expander x:Name="ExpSocial" Header="🕵️  Social Engineering" IsExpanded="False">
+                            <StackPanel>
+                                <Button x:Name="BtnSecMaltego" Content="Maltego" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
+                                <Button x:Name="BtnSecSherlock" Content="Sherlock" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
                             </StackPanel>
                         </Expander>
                         <Expander x:Name="ExpSystem" Header="🖥️  System" IsExpanded="False">
                             <StackPanel>
                                 <Button x:Name="BtnSystem" Content="Info / Process / Clean" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
-                            </StackPanel>
-                        </Expander>
-                        <Expander x:Name="ExpOsint" Header="🔍  OSINT" IsExpanded="False">
-                            <StackPanel>
-                                <Button x:Name="BtnOsint" Content="IP Lookup" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
                             </StackPanel>
                         </Expander>
                         <Expander x:Name="ExpGen" Header="⚙️  Generators" IsExpanded="False">

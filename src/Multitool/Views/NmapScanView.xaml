@@ -3,8 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <StackPanel>
         <TextBlock Text="Nmap — Scan" FontSize="22" FontWeight="Bold" Margin="0,0,0,4"/>
-        <TextBlock Text="Détection auto + installation en 1 clic" FontSize="12" Foreground="#8B949E" Margin="0,0,0,12"/>
-        <GroupBox Header="État / Installation">
+        <TextBlock x:Name="TxtSub" Text="Auto-detection + 1-click install" FontSize="12" Foreground="#8B949E" Margin="0,0,0,12"/>
+        <GroupBox x:Name="GrpState" Header="Status / Install">
             <StackPanel Margin="10">
                 <Border x:Name="StatusCard" CornerRadius="8" Padding="12,10" Background="#161B22">
                     <StackPanel Orientation="Horizontal">
@@ -13,34 +13,38 @@
                             <TextBlock x:Name="TxtNmapStatus" FontWeight="SemiBold" FontSize="13" Text="Vérification..."/>
                             <TextBlock x:Name="TxtNmapDetail" FontSize="11" Foreground="#8B949E" TextWrapping="Wrap" Width="550"/>
                         </StackPanel>
-                        <Button Content="Vérifier" Style="{StaticResource SecondaryButton}" Width="90" Margin="12,0,0,0" Click="BtnCheck_Click"/>
+                        <Button x:Name="BtnRecheck" Content="Check" Style="{StaticResource SecondaryButton}" Width="90" Margin="12,0,0,0" Click="BtnCheck_Click"/>
                     </StackPanel>
                 </Border>
                 <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                    <Button x:Name="BtnWinget" Content="⬇ Installer via winget" Style="{StaticResource ActionButton}" Width="190" Click="BtnWinget_Click"/>
-                    <Button x:Name="BtnDownload" Content="⬇ Télécharger setup.exe" Style="{StaticResource SecondaryButton}" Width="200" Margin="8,0,0,0" Click="BtnDownload_Click"/>
+                    <Button x:Name="BtnWinget" Content="⬇ Install via winget" Style="{StaticResource ActionButton}" Width="190" Click="BtnWinget_Click"/>
+                    <Button x:Name="BtnDownload" Content="⬇ Download setup.exe" Style="{StaticResource SecondaryButton}" Width="200" Margin="8,0,0,0" Click="BtnDownload_Click"/>
                     <Button Content="nmap.org" Style="{StaticResource SecondaryButton}" Width="100" Margin="8,0,0,0" Click="BtnOpenPage_Click"/>
                 </StackPanel>
                 <ProgressBar x:Name="DlProgress" Height="8" Margin="0,10,0,0" Minimum="0" Maximum="100"/>
                 <TextBox x:Name="OutInstall" Margin="0,8,0,0" Height="70" IsReadOnly="True" AcceptsReturn="True" FontFamily="Consolas"/>
             </StackPanel>
         </GroupBox>
-        <GroupBox Header="Scan">
+        <GroupBox x:Name="GrpScan" Header="Scan">
             <StackPanel Margin="10">
                 <StackPanel Orientation="Horizontal">
                     <TextBox x:Name="InTarget" Width="220" Text="127.0.0.1"/>
                     <TextBox x:Name="InPorts" Width="140" Margin="8,0,0,0" Text="80,443,3389"/>
                 </StackPanel>
                 <WrapPanel Margin="0,10,0,0">
-                    <Button Content="Rapide -F" Style="{StaticResource ActionButton}" Width="100" Margin="0,0,8,8" Click="BtnQuick_Click"/>
+                    <Button x:Name="BtnQuick" Content="Quick -F" Style="{StaticResource ActionButton}" Width="100" Margin="0,0,8,8" Click="BtnQuick_Click"/>
                     <Button Content="Services -sV" Style="{StaticResource ActionButton}" Width="110" Margin="0,0,8,8" Click="BtnService_Click"/>
                     <Button Content="OS -O" Style="{StaticResource SecondaryButton}" Width="90" Margin="0,0,8,8" Click="BtnOs_Click"/>
-                    <Button Content="Complet -A" Style="{StaticResource SecondaryButton}" Width="100" Margin="0,0,8,8" Click="BtnFull_Click"/>
+                    <Button x:Name="BtnFull" Content="Full -A" Style="{StaticResource SecondaryButton}" Width="100" Margin="0,0,8,8" Click="BtnFull_Click"/>
                     <Button Content="Ping -sn" Style="{StaticResource SecondaryButton}" Width="90" Margin="0,0,8,8" Click="BtnPingSweep_Click"/>
-                    <Button Content="Ports -p" Style="{StaticResource ActionButton}" Width="90" Margin="0,0,8,8" Click="BtnPorts_Click"/>
+                    <Button x:Name="BtnPorts" Content="Ports -p" Style="{StaticResource ActionButton}" Width="90" Margin="0,0,8,8" Click="BtnPorts_Click"/>
                 </WrapPanel>
                 <TextBox x:Name="OutNmap" Height="220" IsReadOnly="True" AcceptsReturn="True"
                          FontFamily="Consolas" VerticalScrollBarVisibility="Auto"/>
+                <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+                    <Button Content="💾 Exporter (.txt) → data/" Style="{StaticResource SecondaryButton}" Width="210" Click="BtnExport_Click"/>
+                    <TextBlock x:Name="TxtExport" Margin="8,6,0,0" FontSize="11" Foreground="#8B949E"/>
+                </StackPanel>
             </StackPanel>
         </GroupBox>
     </StackPanel>

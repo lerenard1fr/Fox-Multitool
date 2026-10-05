@@ -14,10 +14,9 @@
         </GroupBox>
         <GroupBox x:Name="GrpLang" Header="Language">
             <StackPanel Margin="10">
-                <StackPanel Orientation="Horizontal">
-                    <Button x:Name="BtnEn" Content="English" Style="{StaticResource ActionButton}" Width="110" Click="BtnEn_Click"/>
-                    <Button x:Name="BtnFr" Content="Français" Style="{StaticResource SecondaryButton}" Width="110" Margin="8,0,0,0" Click="BtnFr_Click"/>
-                </StackPanel>
+                <ComboBox x:Name="LangCombo" Width="260" HorizontalAlignment="Left"
+                          IsEditable="True" IsTextSearchEnabled="False"
+                          SelectionChanged="LangCombo_Changed"/>
             </StackPanel>
         </GroupBox>
     </StackPanel>

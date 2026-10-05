@@ -9,12 +9,17 @@ public static class ToolInstaller
     public const string NmapSetupUrl = "https://nmap.org/dist/nmap-7.991-setup.exe";
     public const string NmapPageUrl = "https://nmap.org/download.html";
 
-    public static async Task<string> InstallNmapViaWingetAsync(int timeoutMs = 300000)
+    public static Task<string> InstallNmapViaWingetAsync(int timeoutMs = 300000)
+        => InstallViaWingetAsync("Insecure.Nmap", timeoutMs);
+
+    public static async Task<string> InstallViaWingetAsync(string packageId, int timeoutMs = 300000)
     {
+        if (string.IsNullOrWhiteSpace(packageId) || packageId.Any(c => c is '&' or '|' or ';' or '$' or '`'))
+            return "Identifiant de paquet invalide.";
         try
         {
             var psi = new ProcessStartInfo("winget",
-                "install -e --id Insecure.Nmap --accept-source-agreements --accept-package-agreements --silent")
+                $"install -e --id {packageId} --accept-source-agreements --accept-package-agreements --silent")
             {
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
@@ -22,7 +27,7 @@ public static class ToolInstaller
                 CreateNoWindow = true,
             };
             using var p = Process.Start(psi);
-            if (p is null) return "Impossible de lancer winget.";
+            if (p is null) return Lang.T("svc_winget_run");
             var outTask = p.StandardOutput.ReadToEndAsync();
             var errTask = p.StandardError.ReadToEndAsync();
             using var cts = new CancellationTokenSource(timeoutMs);
@@ -30,17 +35,17 @@ public static class ToolInstaller
             catch (OperationCanceledException)
             {
                 try { p.Kill(); } catch { }
-                return "Timeout winget (>5 min). Réessaie ou utilise le setup.exe.";
+                return Lang.T("svc_winget_timeout");
             }
             string stdout = await outTask;
             string stderr = await errTask;
             return p.ExitCode == 0
-                ? $"Nmap installé via winget.\n{stdout.Trim()}\nRelance la vérification Nmap."
+                ? string.Format(Lang.T("svc_winget_ok"), packageId, stdout.Trim())
                 : $"winget exit {p.ExitCode}\n{stdout.Trim()}\n{stderr.Trim()}".Trim();
         }
         catch (Exception ex)
         {
-            return $"Erreur winget: {ex.Message}";
+            return $"{Lang.T("svc_error")}{ex.Message}";
         }
     }
 
@@ -48,7 +53,9 @@ public static class ToolInstaller
     {
         try
         {
-            string dest = Path.Combine(Path.GetTempPath(), "nmap-7.991-setup.exe");
+            // Portable : le setup est telecharge dans tools/ a cote de l'exe, pas dans %TEMP%.
+            Directory.CreateDirectory(AppPaths.ToolsDir);
+            string dest = Path.Combine(AppPaths.ToolsDir, "nmap-7.991-setup.exe");
             using var http = new HttpClient { Timeout = TimeSpan.FromMinutes(10) };
             using var resp = await http.GetAsync(NmapSetupUrl, HttpCompletionOption.ResponseHeadersRead, ct);
             resp.EnsureSuccessStatusCode();
@@ -69,7 +76,7 @@ public static class ToolInstaller
         }
         catch (Exception ex)
         {
-            return $"Erreur téléchargement: {ex.Message}";
+            return $"{Lang.T("svc_dl_err")}{ex.Message}";
         }
     }
 
@@ -79,11 +86,11 @@ public static class ToolInstaller
         {
             // Lance avec UAC (l'installeur Nmap/Npcap demande admin)
             Process.Start(new ProcessStartInfo(setupPath) { UseShellExecute = true });
-            return $"Installeur lancé : {setupPath}\nSuis l'assistant, puis clique Vérifier Nmap.";
+            return $"{Lang.T("v_nmap_launched")}{setupPath}\n{Lang.T("v_nmap_follow")}";
         }
         catch (Exception ex)
         {
-            return $"Erreur lancement: {ex.Message}";
+            return $"{Lang.T("svc_launch_err")}{ex.Message}";
         }
     }
 

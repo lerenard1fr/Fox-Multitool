@@ -482,3 +482,6 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+
+# FoxMultitool portable build output (gros binaire, a partager via Release, pas via git)
+dist/

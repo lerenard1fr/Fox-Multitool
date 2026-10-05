@@ -1,5 +1,6 @@
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using Multitool.Services;
 
 namespace Multitool.Views;
@@ -7,6 +8,7 @@ namespace Multitool.Views;
 public partial class SettingsView : UserControl
 {
     private bool _ready;
+    private bool _updating;
 
     public SettingsView()
     {
@@ -16,7 +18,45 @@ public partial class SettingsView : UserControl
         RadioSystem.IsChecked = t == "System";
         RadioDark.IsChecked = t == "Dark";
         RadioLight.IsChecked = t == "Light";
+        RestoreFullList();
+        // Filtrage uniquement sur frappe clavier, jamais sur selection.
+        LangCombo.ApplyTemplate();
+        if (LangCombo.Template.FindName("PART_EditableTextBox", LangCombo) is TextBox tb)
+        {
+            tb.PreviewTextInput += (_, _) => Dispatcher.BeginInvoke(() => FilterLang(tb.Text));
+            tb.PreviewKeyDown += (_, e) =>
+            {
+                if (e.Key is Key.Back or Key.Delete)
+                    Dispatcher.BeginInvoke(() => FilterLang(tb.Text));
+            };
+        }
         _ready = true;
+    }
+
+    private void RestoreFullList()
+    {
+        _updating = true;
+        LangCombo.Items.Clear();
+        foreach (var (code, label) in Lang.Languages)
+            LangCombo.Items.Add(new ComboBoxItem { Tag = code, Content = label });
+        foreach (ComboBoxItem item in LangCombo.Items)
+            if ((string)item.Tag == App.Settings.Lang) { LangCombo.SelectedItem = item; break; }
+        LangCombo.SelectedItem ??= LangCombo.Items[0];
+        _updating = false;
+    }
+
+    private void FilterLang(string query)
+    {
+        if (!_ready || _updating) return;
+        query = query.Trim().ToLowerInvariant();
+        _updating = true;
+        LangCombo.Items.Clear();
+        foreach (var (code, label) in Lang.Languages)
+            if (string.IsNullOrEmpty(query) || label.ToLowerInvariant().Contains(query) || code.ToLowerInvariant().Contains(query))
+                LangCombo.Items.Add(new ComboBoxItem { Tag = code, Content = label });
+        _updating = false;
+        if (LangCombo.Items.Count > 0)
+            LangCombo.IsDropDownOpen = true;
     }
 
     private void RefreshTexts()
@@ -40,8 +80,16 @@ public partial class SettingsView : UserControl
         ThemeManager.Apply(theme);
     }
 
-    private void BtnEn_Click(object sender, RoutedEventArgs e) => SetLang("en");
-    private void BtnFr_Click(object sender, RoutedEventArgs e) => SetLang("fr");
+    private void LangCombo_Changed(object sender, SelectionChangedEventArgs e)
+    {
+        if (!_ready || _updating) return;
+        if (LangCombo.SelectedItem is ComboBoxItem item && item.Tag is string lang)
+        {
+            SetLang(lang);
+            LangCombo.IsDropDownOpen = false;
+            RestoreFullList(); // liste complete pour la prochaine ouverture
+        }
+    }
 
     private void SetLang(string lang)
     {

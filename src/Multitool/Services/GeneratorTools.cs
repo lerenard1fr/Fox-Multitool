@@ -34,6 +34,6 @@ public static class GeneratorTools
     public static string FromBase64(string input)
     {
         try { return Encoding.UTF8.GetString(Convert.FromBase64String(input.Trim())); }
-        catch { return "Base64 invalide."; }
+        catch { return Lang.T("svc_b64"); }
     }
 }

@@ -6,7 +6,14 @@ namespace Multitool.Views;
 
 public partial class DnsLookupView : UserControl
 {
-    public DnsLookupView() => InitializeComponent();
+    public DnsLookupView()
+    {
+        InitializeComponent();
+        RefreshTexts();
+        Lang.Changed += RefreshTexts;
+    }
+
+    private void RefreshTexts() => TxtSub.Text = Lang.T("v_dns_sub");
 
     private async void BtnNs_Click(object sender, RoutedEventArgs e) => await Dns("NS");
     private async void BtnMx_Click(object sender, RoutedEventArgs e) => await Dns("MX");
@@ -17,13 +24,13 @@ public partial class DnsLookupView : UserControl
 
     private async void BtnPtr_Click(object sender, RoutedEventArgs e)
     {
-        OutDns.Text = "Recherche PTR...";
+        OutDns.Text = Lang.T("v_msg_ptr");
         OutDns.Text = await DnsTools.ReverseAsync(InPtr.Text);
     }
 
     private async Task Dns(string type)
     {
-        OutDns.Text = $"Recherche {type}...";
+        OutDns.Text = string.Format(Lang.T("v_msg_lookup"), type);
         OutDns.Text = await DnsTools.LookupAsync(InDns.Text, type);
     }
 }

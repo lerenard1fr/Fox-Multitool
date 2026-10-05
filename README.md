@@ -1,36 +1,60 @@
 # Fox Multitool
 
 Multitool desktop (C# / WPF / .NET 9) — utilitaires légitimes réunis en une app.
+Interface traduite en 14 langues (menu, vues, messages) + thèmes sombre/clair/système.
 
-## Lancer
+## Lancer (dev)
 ```powershell
 dotnet build Multitool.sln -c Release
 dotnet run --project src/Multitool
 ```
-Exe : `src/Multitool/bin/Release/net9.0-windows/FoxMultitool.exe`
 
-## Modules v0.5.0 — menu déroulant + statut couleur + options
-- **🌐 Réseau** (Expander)
-  - Base IP / Ping / Ports : IP locale/publique, Ping, DNS lookup, scan ports natif
-  - Nmap Scan (`nmap`) : `-F`, `-sV`, `-O`, `-A`, `-sn`, `-p` + boutons Installer via winget / Télécharger setup.exe (nmap-7.991) + carte statut 🟢 installé / 🔴 manquant
-  - DNS / NS Lookup (`nslookup`) : NS, MX, TXT, A, AAAA, SOA, PTR
-  - Tracert / ARP / Netstat (`tracert`, `arp -a`, `ipconfig /all`, `netstat -ano`, `netsh wlan show profiles`)
+## Dossiers de sortie (c'est normal d'en avoir deux)
+- `src/Multitool/bin/Release/` : sortie locale de `dotnet build` (dev uniquement, **nécessite .NET 9 installé**, ignoré par git). Ne pas partager.
+- `dist/FoxMultitool.exe` : version **portable** à partager (runtime inclus dans l'exe, rien à installer). Produit par le script ci-dessous, ignoré par git.
+
+## Version portable (1 exe + dossiers, rien à installer)
+```powershell
+powershell -ExecutionPolicy Bypass -File ./publish-portable.ps1
+```
+Contenu de `dist/` après publish (~60 Mo) :
+```
+dist/
+  FoxMultitool.exe
+  settings.json   (créé au 1er lancement : thème + langue)
+  tools/          (setup nmap téléchargé par l'app ; tools/nmap/nmap.exe détecté en priorité)
+  logs/           (journal app-AAAA-MM-JJ.log, créé au lancement)
+  data/           (exports : nmap-cible-date.txt via bouton Exporter)
+```
+Zippe ce dossier, mets-le sur clé USB, envoie-le à un pote ou en Release GitHub : il se lance sur Windows 10/11 x64 sans rien installer, et tout (réglages, logs, exports, outils) reste dedans.
+Note : Windows SmartScreen peut afficher un avertissement (exe non signé) → "Informations complémentaires" → "Exécuter quand même".
+
+## Modules v0.5.0 — menu style Kali + statut couleur + options
+- **🔎 Information Gathering** : Base IP / Ping / Ports, Nmap Scan (`-F -sV -O -A -sn -p` + install + export `data/`), DNS / NS Lookup (`nslookup` : NS MX TXT A AAAA SOA PTR), Tracert / ARP / Netstat, IP Lookup, Amass, theHarvester
+- **🛡️ Vulnerability Analysis** : Nessus, Nikto
+- **🌍 Web Application Analysis** : Burp Suite, sqlmap, Gobuster, ffuf
+- **🔑 Password Attacks** : John the Ripper, Hashcat, Hydra
+- **📡 Wireless Attacks** : Aircrack-ng
+- **👃 Sniffing & Spoofing** : Wireshark, Bettercap, Responder, Netcat (ncat)
+- **💥 Exploitation Tools** : Metasploit
+- **🕵️ Social Engineering** : Maltego, Sherlock
 - **🖥️ Système** : infos OS/machine, top process RAM, nettoyage %TEMP%
-- **🔍 OSINT** : IP lookup via ip-api.com
 - **⚙️ Générateurs** : mot de passe, GUID, Base64, SHA256/MD5
+- **⚙️ Options** : thème System (défaut, suit Windows) / Dark / Light + langue (14 langues, défaut English), sauvegardé dans `settings.json` à côté de l'exe
+- **🧰 All Tools** : vue d'ensemble des 19 outils sécu — détection 🟢/🔴, install via winget ou page officielle, lancement. Audit de vos propres systèmes uniquement.
 
 ## Structure
-- **⚙️ Options** : thème System (défaut, suit Windows) / Dark / Light + langue English (défaut) / Français, sauvegardé dans `%APPDATA%/FoxMultitool/settings.json`
 ```
 src/Multitool/
   MainWindow.xaml (+.cs)  # navigation Expanders
-  Views/                 # NetworkView, NmapScanView, DnsLookupView, NetworkExtraView, SystemView, OsintView, GeneratorView, SettingsView
-  Services/              # NetworkTools, NmapTools, DnsTools, NetExtraTools, SystemTools, OsintTools, GeneratorTools, ToolInstaller, ToolStatus, AppSettings, Lang, ThemeManager
+  Views/                 # NetworkView, NmapScanView, DnsLookupView, NetworkExtraView, SystemView, OsintView, GeneratorView, SettingsView, SecurityView
+  Services/              # NetworkTools, NmapTools, DnsTools, NetExtraTools, SystemTools, OsintTools, GeneratorTools, ToolInstaller, ToolStatus, SecurityTools, AppSettings, AppPaths, Logger, Lang, ThemeManager
   Themes/                # Dark.xaml, Light.xaml
+publish-portable.ps1     # produit dist/FoxMultitool/ (dossier portable)
 ```
 
 ## Prérequis outils externes
-- `nmap` optionnel : install auto via l'app ou https://nmap.org/download.html
+- `nmap` optionnel : install auto via l'app (winget ou setup dans `tools/`) ou https://nmap.org/download.html
 - `nslookup`, `tracert`, `arp`, `ipconfig`, `netstat`, `netsh` inclus Windows
 
 ## Notes

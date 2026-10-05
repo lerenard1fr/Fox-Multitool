@@ -2,20 +2,20 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <StackPanel>
-        <TextBlock Text="Générateurs" FontSize="20" FontWeight="Bold" Margin="0,0,0,12"/>
-        <GroupBox Header="Mot de passe">
+        <TextBlock x:Name="TxtTitle" Text="Generators" FontSize="20" FontWeight="Bold" Margin="0,0,0,12"/>
+        <GroupBox x:Name="GrpPass" Header="Password">
             <StackPanel Margin="8" Orientation="Horizontal">
                 <TextBox x:Name="InLen" Width="60" Text="20"/>
-                <CheckBox x:Name="ChkUpper" Content="Maj" IsChecked="True" Margin="8,6,0,0"/>
-                <CheckBox x:Name="ChkDigits" Content="Chiffres" IsChecked="True" Margin="8,6,0,0"/>
-                <CheckBox x:Name="ChkSym" Content="Symboles" IsChecked="True" Margin="8,6,0,0"/>
-                <Button Style="{StaticResource ActionButton}" Content="Générer" Margin="8,0,0,0" Width="80" Click="BtnPass_Click"/>
+                <CheckBox x:Name="ChkUpper" Content="Uppercase" IsChecked="True" Margin="8,6,0,0"/>
+                <CheckBox x:Name="ChkDigits" Content="Digits" IsChecked="True" Margin="8,6,0,0"/>
+                <CheckBox x:Name="ChkSym" Content="Symbols" IsChecked="True" Margin="8,6,0,0"/>
+                <Button Style="{StaticResource ActionButton}" x:Name="BtnPass" Content="Generate" Margin="8,0,0,0" Width="80" Click="BtnPass_Click"/>
                 <TextBox x:Name="OutPass" Margin="8,0,0,0" Width="280" IsReadOnly="True"/>
             </StackPanel>
         </GroupBox>
         <GroupBox Header="UUID / GUID">
             <StackPanel Margin="8" Orientation="Horizontal">
-                <Button Style="{StaticResource ActionButton}" Content="Nouveau GUID" Width="120" Click="BtnGuid_Click"/>
+                <Button Style="{StaticResource ActionButton}" x:Name="BtnGuid" Content="New GUID" Width="120" Click="BtnGuid_Click"/>
                 <TextBox x:Name="OutGuid" Margin="8,0,0,0" Width="300" IsReadOnly="True"/>
             </StackPanel>
         </GroupBox>
@@ -23,8 +23,8 @@
             <StackPanel Margin="8">
                 <TextBox x:Name="InB64" Height="60" AcceptsReturn="True"/>
                 <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
-                    <Button Style="{StaticResource ActionButton}" Content="Encoder" Width="80" Click="BtnEnc_Click"/>
-                    <Button Style="{StaticResource ActionButton}" Content="Décoder" Width="80" Margin="8,0,0,0" Click="BtnDec_Click"/>
+                    <Button Style="{StaticResource ActionButton}" x:Name="BtnEnc" Content="Encode" Width="80" Click="BtnEnc_Click"/>
+                    <Button Style="{StaticResource ActionButton}" x:Name="BtnDec" Content="Decode" Width="80" Margin="8,0,0,0" Click="BtnDec_Click"/>
                 </StackPanel>
                 <TextBox x:Name="OutB64" Margin="0,8,0,0" Height="60" IsReadOnly="True" AcceptsReturn="True"/>
             </StackPanel>

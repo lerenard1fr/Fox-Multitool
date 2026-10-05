@@ -8,8 +8,8 @@ public sealed class AppSettings
     public string Theme { get; set; } = "System"; // System | Dark | Light
     public string Lang { get; set; } = "en";      // en | fr
 
-    private static string FilePath =>
-        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "FoxMultitool", "settings.json");
+    // Portable : settings.json a cote de l'exe (voir AppPaths), le dossier se deplace tel quel.
+    private static string FilePath => AppPaths.SettingsFile;
 
     public static AppSettings Load()
     {

@@ -11,9 +11,9 @@ public static class SystemTools
                $"OS: {Environment.OSVersion}\n" +
                $"64-bit OS: {Environment.Is64BitOperatingSystem}\n" +
                $"User: {Environment.UserName}\n" +
-               $"CPU: {Environment.ProcessorCount} cœurs\n" +
+               $"CPU: {Environment.ProcessorCount} {Lang.T("sys_cores")}\n" +
                $"Uptime: {TimeSpan.FromMilliseconds(Environment.TickCount64):d\\j\\ hh\\:mm\\:ss}\n" +
-               $"Dossier: {Environment.CurrentDirectory}";
+               $"{Lang.T("sys_folder")}: {Environment.CurrentDirectory}";
     }
 
     public static string TopProcesses(int count = 15)
@@ -26,11 +26,11 @@ public static class SystemTools
                 .Select(p =>
                 {
                     try { return $"{p.ProcessName,-25} PID {p.Id,-7} {(p.WorkingSet64 / 1024 / 1024)} Mo"; }
-                    catch { return $"{p.ProcessName} (accès refusé)"; }
+                    catch { return $"{p.ProcessName} ({Lang.T("sys_denied")})"; }
                 });
             return string.Join("\n", list);
         }
-        catch (Exception ex) { return $"Erreur: {ex.Message}"; }
+        catch (Exception ex) { return $"{Lang.T("svc_error")}{ex.Message}"; }
     }
 
     public static string CleanTemp()
@@ -44,8 +44,8 @@ public static class SystemTools
                 try { File.Delete(f); deleted++; }
                 catch { failed++; }
             }
-            return $"Temp: {tmp}\nFichiers supprimés: {deleted}\nÉchecs (en cours d'utilisation): {failed}";
+            return $"Temp: {tmp}\n{Lang.T("sys_deleted")}: {deleted}\n{Lang.T("sys_failed")}: {failed}";
         }
-        catch (Exception ex) { return $"Erreur: {ex.Message}"; }
+        catch (Exception ex) { return $"{Lang.T("svc_error")}{ex.Message}"; }
     }
 }
