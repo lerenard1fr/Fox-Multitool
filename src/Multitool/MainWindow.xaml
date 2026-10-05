@@ -1,0 +1,90 @@
+﻿<Window x:Class="Multitool.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Fox Multitool" Height="620" Width="1000"
+        WindowStartupLocation="CenterScreen"
+        Background="#0D1117" Foreground="#E6EDF3">
+    <Window.Resources>
+        <Style TargetType="Button" x:Key="MenuButton">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#E6EDF3"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="12,10"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="8" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#21262D"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="Button" x:Key="ActionButton">
+            <Setter Property="Background" Value="#238636"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="10,6"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="6" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#2EA043"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Background" Value="#161B22"/>
+            <Setter Property="Foreground" Value="#E6EDF3"/>
+            <Setter Property="BorderBrush" Value="#30363D"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="8,6"/>
+        </Style>
+        <Style TargetType="GroupBox">
+            <Setter Property="Foreground" Value="#E6EDF3"/>
+            <Setter Property="BorderBrush" Value="#30363D"/>
+            <Setter Property="Margin" Value="0,0,0,12"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="210"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="0" Background="#161B22" BorderBrush="#30363D" BorderThickness="0,0,1,0">
+            <DockPanel Margin="12">
+                <StackPanel DockPanel.Dock="Top">
+                    <TextBlock Text="FOX MULTITOOL" FontSize="22" FontWeight="Bold" Foreground="#FF7A00" Margin="4,4,0,2"/>
+                    <TextBlock Text="v0.2.0" FontSize="11" Foreground="#8B949E" Margin="4,0,0,16"/>
+                    <Button x:Name="BtnNetwork" Content="🌐  Réseau" Style="{StaticResource MenuButton}" Click="Nav_Click"/>
+                    <Button x:Name="BtnNmap" Content="📡  Nmap / DNS" Style="{StaticResource MenuButton}" Click="Nav_Click"/>
+                    <Button x:Name="BtnSystem" Content="🖥️  Système" Style="{StaticResource MenuButton}" Click="Nav_Click"/>
+                    <Button x:Name="BtnOsint" Content="🔍  OSINT / Lookup" Style="{StaticResource MenuButton}" Click="Nav_Click"/>
+                    <Button x:Name="BtnGenerator" Content="⚙️  Générateurs" Style="{StaticResource MenuButton}" Click="Nav_Click"/>
+                </StackPanel>
+                <TextBlock DockPanel.Dock="Bottom" Text="C# • WPF • .NET 9" FontSize="11" Foreground="#8B949E" Margin="4,0,0,4"/>
+            </DockPanel>
+        </Border>
+
+        <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto" Padding="20">
+            <ContentControl x:Name="MainContent"/>
+        </ScrollViewer>
+    </Grid>
+</Window>

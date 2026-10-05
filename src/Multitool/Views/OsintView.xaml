@@ -1,0 +1,16 @@
+<UserControl x:Class="Multitool.Views.OsintView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <StackPanel>
+        <TextBlock Text="OSINT / Lookup" FontSize="20" FontWeight="Bold" Margin="0,0,0,12"/>
+        <GroupBox Header="IP Lookup (ip-api.com)">
+            <StackPanel Margin="8">
+                <StackPanel Orientation="Horizontal">
+                    <TextBox x:Name="InIp" Width="200" Text="8.8.8.8"/>
+                    <Button Content="Chercher" Margin="8,0,0,0" Width="80" Click="BtnIp_Click"/>
+                </StackPanel>
+                <TextBox x:Name="OutIp" Margin="0,8,0,0" Height="220" IsReadOnly="True" AcceptsReturn="True"/>
+            </StackPanel>
+        </GroupBox>
+    </StackPanel>
+</UserControl>
