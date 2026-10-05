@@ -1,13 +1,17 @@
-﻿using System.Configuration;
-using System.Data;
-using System.Windows;
+﻿using System.Windows;
+using Multitool.Services;
 
 namespace Multitool;
 
-/// <summary>
-/// Interaction logic for App.xaml
-/// </summary>
 public partial class App : Application
 {
-}
+    public static AppSettings Settings { get; private set; } = new();
 
+    protected override void OnStartup(StartupEventArgs e)
+    {
+        Settings = AppSettings.Load();
+        Lang.Set(Settings.Lang);
+        ThemeManager.Apply(Settings.Theme);
+        base.OnStartup(e);
+    }
+}

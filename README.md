@@ -9,7 +9,7 @@ dotnet run --project src/Multitool
 ```
 Exe : `src/Multitool/bin/Release/net9.0-windows/FoxMultitool.exe`
 
-## Modules v0.4.0 — menu déroulant + statut couleur
+## Modules v0.5.0 — menu déroulant + statut couleur + options
 - **🌐 Réseau** (Expander)
   - Base IP / Ping / Ports : IP locale/publique, Ping, DNS lookup, scan ports natif
   - Nmap Scan (`nmap`) : `-F`, `-sV`, `-O`, `-A`, `-sn`, `-p` + boutons Installer via winget / Télécharger setup.exe (nmap-7.991) + carte statut 🟢 installé / 🔴 manquant
@@ -20,11 +20,13 @@ Exe : `src/Multitool/bin/Release/net9.0-windows/FoxMultitool.exe`
 - **⚙️ Générateurs** : mot de passe, GUID, Base64, SHA256/MD5
 
 ## Structure
+- **⚙️ Options** : thème System (défaut, suit Windows) / Dark / Light + langue English (défaut) / Français, sauvegardé dans `%APPDATA%/FoxMultitool/settings.json`
 ```
 src/Multitool/
   MainWindow.xaml (+.cs)  # navigation Expanders
-  Views/                 # NetworkView, NmapScanView, DnsLookupView, NetworkExtraView, SystemView, OsintView, GeneratorView
-  Services/              # NetworkTools, NmapTools, DnsTools, NetExtraTools, SystemTools, OsintTools, GeneratorTools, ToolInstaller
+  Views/                 # NetworkView, NmapScanView, DnsLookupView, NetworkExtraView, SystemView, OsintView, GeneratorView, SettingsView
+  Services/              # NetworkTools, NmapTools, DnsTools, NetExtraTools, SystemTools, OsintTools, GeneratorTools, ToolInstaller, ToolStatus, AppSettings, Lang, ThemeManager
+  Themes/                # Dark.xaml, Light.xaml
 ```
 
 ## Prérequis outils externes

@@ -1,0 +1,24 @@
+<UserControl x:Class="Multitool.Views.SettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <StackPanel>
+        <TextBlock x:Name="TxtTitle" Text="Options" FontSize="22" FontWeight="Bold" Margin="0,0,0,4"/>
+        <TextBlock x:Name="TxtSaved" FontSize="12" Foreground="#8B949E" Margin="0,0,0,12"/>
+        <GroupBox x:Name="GrpTheme" Header="Theme">
+            <StackPanel Margin="10">
+                <RadioButton x:Name="RadioSystem" GroupName="Theme" Margin="0,4" Checked="Theme_Checked"/>
+                <RadioButton x:Name="RadioDark" GroupName="Theme" Margin="0,4" Checked="Theme_Checked"/>
+                <RadioButton x:Name="RadioLight" GroupName="Theme" Margin="0,4" Checked="Theme_Checked"/>
+                <TextBlock x:Name="TxtThemeNote" FontSize="11" Foreground="#8B949E" Margin="0,8,0,0" TextWrapping="Wrap"/>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox x:Name="GrpLang" Header="Language">
+            <StackPanel Margin="10">
+                <StackPanel Orientation="Horizontal">
+                    <Button x:Name="BtnEn" Content="English" Style="{StaticResource ActionButton}" Width="110" Click="BtnEn_Click"/>
+                    <Button x:Name="BtnFr" Content="Français" Style="{StaticResource SecondaryButton}" Width="110" Margin="8,0,0,0" Click="BtnFr_Click"/>
+                </StackPanel>
+            </StackPanel>
+        </GroupBox>
+    </StackPanel>
+</UserControl>

@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Fox Multitool" Height="700" Width="1080"
         WindowStartupLocation="CenterScreen"
-        Background="#0D1117" Foreground="#E6EDF3">
+        Background="{DynamicResource BgMain}" Foreground="{DynamicResource FgMain}">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="250"/>
@@ -14,41 +14,44 @@
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
 
-        <Border Grid.Column="0" Grid.Row="0" Background="#161B22" BorderBrush="#30363D" BorderThickness="0,0,1,0">
+        <Border Grid.Column="0" Grid.Row="0" Background="{DynamicResource BgSidebar}" BorderBrush="{DynamicResource BorderCol}" BorderThickness="0,0,1,0">
             <DockPanel Margin="14">
                 <StackPanel DockPanel.Dock="Top">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="🦊" FontSize="26" VerticalAlignment="Center"/>
                         <StackPanel Margin="8,0,0,0">
-                            <TextBlock Text="FOX MULTITOOL" FontSize="18" FontWeight="Bold" Foreground="#FF7A00"/>
-                            <Border Background="#21262D" CornerRadius="8" Padding="6,1" HorizontalAlignment="Left" Margin="0,3,0,0">
-                                <TextBlock Text="v0.4.0" FontSize="10" Foreground="#8B949E"/>
+                            <TextBlock Text="FOX MULTITOOL" FontSize="18" FontWeight="Bold" Foreground="{DynamicResource Accent}"/>
+                            <Border Background="{DynamicResource BgHover}" CornerRadius="8" Padding="6,1" HorizontalAlignment="Left" Margin="0,3,0,0">
+                                <TextBlock Text="v0.5.0" FontSize="10" Foreground="{DynamicResource FgMuted}"/>
                             </Border>
                         </StackPanel>
                     </StackPanel>
-                    <Separator Margin="0,12" Background="#30363D"/>
+                    <Separator Margin="0,12"/>
+                </StackPanel>
+                <StackPanel DockPanel.Dock="Bottom" Margin="0,8,0,0">
+                    <Button x:Name="BtnSettings" Content="⚙️  Options" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
                 </StackPanel>
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel>
-                        <Expander Header="🌐  Réseau" IsExpanded="True">
+                        <Expander x:Name="ExpNetwork" Header="🌐  Network" IsExpanded="True">
                             <StackPanel>
                                 <Button x:Name="BtnNetwork" Content="Base IP / Ping / Ports" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
                                 <Button x:Name="BtnNmapScan" Content="Nmap Scan" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
                                 <Button x:Name="BtnDns" Content="DNS / NS Lookup" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
-                                <Button x:Name="BtnNetExtra" Content="Tracert / ARP / Netstat" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
+                                <Button x:Name="BtnNetExtra" Content="Traceroute / ARP / Netstat" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
                             </StackPanel>
                         </Expander>
-                        <Expander Header="🖥️  Système" IsExpanded="False">
+                        <Expander x:Name="ExpSystem" Header="🖥️  System" IsExpanded="False">
                             <StackPanel>
-                                <Button x:Name="BtnSystem" Content="Infos / Process / Clean" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
+                                <Button x:Name="BtnSystem" Content="Info / Process / Clean" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
                             </StackPanel>
                         </Expander>
-                        <Expander Header="🔍  OSINT" IsExpanded="False">
+                        <Expander x:Name="ExpOsint" Header="🔍  OSINT" IsExpanded="False">
                             <StackPanel>
                                 <Button x:Name="BtnOsint" Content="IP Lookup" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
                             </StackPanel>
                         </Expander>
-                        <Expander Header="⚙️  Générateurs" IsExpanded="False">
+                        <Expander x:Name="ExpGen" Header="⚙️  Generators" IsExpanded="False">
                             <StackPanel>
                                 <Button x:Name="BtnGenerator" Content="Pass / GUID / Hash" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
                             </StackPanel>
@@ -62,11 +65,11 @@
             <ContentControl x:Name="MainContent"/>
         </ScrollViewer>
 
-        <Border Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Background="#161B22" BorderBrush="#30363D" BorderThickness="0,1,0,0">
+        <Border Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Background="{DynamicResource BgSidebar}" BorderBrush="{DynamicResource BorderCol}" BorderThickness="0,1,0,0">
             <StackPanel Orientation="Horizontal" Margin="14,0" VerticalAlignment="Center">
                 <Ellipse x:Name="DotNmap" Width="10" Height="10" Fill="Gray" Margin="0,0,6,0"/>
-                <TextBlock x:Name="TxtStatus" Text="Vérification outils..." FontSize="11" Foreground="#8B949E"/>
-                <TextBlock Text="  •  C# WPF .NET 9" FontSize="11" Foreground="#484F58"/>
+                <TextBlock x:Name="TxtStatus" Text="Checking tools..." FontSize="11" Foreground="{DynamicResource FgMuted}"/>
+                <TextBlock Text="  •  C# WPF .NET 9" FontSize="11" Foreground="{DynamicResource FgMuted}" Opacity="0.7"/>
             </StackPanel>
         </Border>
     </Grid>
