@@ -9,13 +9,13 @@
                 <CheckBox x:Name="ChkUpper" Content="Maj" IsChecked="True" Margin="8,6,0,0"/>
                 <CheckBox x:Name="ChkDigits" Content="Chiffres" IsChecked="True" Margin="8,6,0,0"/>
                 <CheckBox x:Name="ChkSym" Content="Symboles" IsChecked="True" Margin="8,6,0,0"/>
-                <Button Content="Générer" Margin="8,0,0,0" Width="80" Click="BtnPass_Click"/>
+                <Button Style="{StaticResource ActionButton}" Content="Générer" Margin="8,0,0,0" Width="80" Click="BtnPass_Click"/>
                 <TextBox x:Name="OutPass" Margin="8,0,0,0" Width="280" IsReadOnly="True"/>
             </StackPanel>
         </GroupBox>
         <GroupBox Header="UUID / GUID">
             <StackPanel Margin="8" Orientation="Horizontal">
-                <Button Content="Nouveau GUID" Width="120" Click="BtnGuid_Click"/>
+                <Button Style="{StaticResource ActionButton}" Content="Nouveau GUID" Width="120" Click="BtnGuid_Click"/>
                 <TextBox x:Name="OutGuid" Margin="8,0,0,0" Width="300" IsReadOnly="True"/>
             </StackPanel>
         </GroupBox>
@@ -23,8 +23,8 @@
             <StackPanel Margin="8">
                 <TextBox x:Name="InB64" Height="60" AcceptsReturn="True"/>
                 <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
-                    <Button Content="Encoder" Width="80" Click="BtnEnc_Click"/>
-                    <Button Content="Décoder" Width="80" Margin="8,0,0,0" Click="BtnDec_Click"/>
+                    <Button Style="{StaticResource ActionButton}" Content="Encoder" Width="80" Click="BtnEnc_Click"/>
+                    <Button Style="{StaticResource ActionButton}" Content="Décoder" Width="80" Margin="8,0,0,0" Click="BtnDec_Click"/>
                 </StackPanel>
                 <TextBox x:Name="OutB64" Margin="0,8,0,0" Height="60" IsReadOnly="True" AcceptsReturn="True"/>
             </StackPanel>
@@ -33,8 +33,8 @@
             <StackPanel Margin="8">
                 <TextBox x:Name="InHash" Height="40" AcceptsReturn="True"/>
                 <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
-                    <Button Content="SHA256" Width="80" Click="BtnSha_Click"/>
-                    <Button Content="MD5" Width="80" Margin="8,0,0,0" Click="BtnMd5_Click"/>
+                    <Button Style="{StaticResource ActionButton}" Content="SHA256" Width="80" Click="BtnSha_Click"/>
+                    <Button Style="{StaticResource ActionButton}" Content="MD5" Width="80" Margin="8,0,0,0" Click="BtnMd5_Click"/>
                 </StackPanel>
                 <TextBox x:Name="OutHash" Margin="0,8,0,0" Height="40" IsReadOnly="True"/>
             </StackPanel>

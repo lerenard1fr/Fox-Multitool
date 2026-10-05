@@ -1,90 +1,73 @@
 ﻿<Window x:Class="Multitool.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Fox Multitool" Height="620" Width="1000"
+        Title="Fox Multitool" Height="700" Width="1080"
         WindowStartupLocation="CenterScreen"
         Background="#0D1117" Foreground="#E6EDF3">
-    <Window.Resources>
-        <Style TargetType="Button" x:Key="MenuButton">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Foreground" Value="#E6EDF3"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Padding" Value="12,10"/>
-            <Setter Property="HorizontalContentAlignment" Value="Left"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" CornerRadius="8" Padding="{TemplateBinding Padding}">
-                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#21262D"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-        <Style TargetType="Button" x:Key="ActionButton">
-            <Setter Property="Background" Value="#238636"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Padding" Value="10,6"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" CornerRadius="6" Padding="{TemplateBinding Padding}">
-                            <ContentPresenter HorizontalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#2EA043"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-        <Style TargetType="TextBox">
-            <Setter Property="Background" Value="#161B22"/>
-            <Setter Property="Foreground" Value="#E6EDF3"/>
-            <Setter Property="BorderBrush" Value="#30363D"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Padding" Value="8,6"/>
-        </Style>
-        <Style TargetType="GroupBox">
-            <Setter Property="Foreground" Value="#E6EDF3"/>
-            <Setter Property="BorderBrush" Value="#30363D"/>
-            <Setter Property="Margin" Value="0,0,0,12"/>
-        </Style>
-    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="210"/>
+            <ColumnDefinition Width="250"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
 
-        <Border Grid.Column="0" Background="#161B22" BorderBrush="#30363D" BorderThickness="0,0,1,0">
-            <DockPanel Margin="12">
+        <Border Grid.Column="0" Grid.Row="0" Background="#161B22" BorderBrush="#30363D" BorderThickness="0,0,1,0">
+            <DockPanel Margin="14">
                 <StackPanel DockPanel.Dock="Top">
-                    <TextBlock Text="FOX MULTITOOL" FontSize="22" FontWeight="Bold" Foreground="#FF7A00" Margin="4,4,0,2"/>
-                    <TextBlock Text="v0.2.0" FontSize="11" Foreground="#8B949E" Margin="4,0,0,16"/>
-                    <Button x:Name="BtnNetwork" Content="🌐  Réseau" Style="{StaticResource MenuButton}" Click="Nav_Click"/>
-                    <Button x:Name="BtnNmap" Content="📡  Nmap / DNS" Style="{StaticResource MenuButton}" Click="Nav_Click"/>
-                    <Button x:Name="BtnSystem" Content="🖥️  Système" Style="{StaticResource MenuButton}" Click="Nav_Click"/>
-                    <Button x:Name="BtnOsint" Content="🔍  OSINT / Lookup" Style="{StaticResource MenuButton}" Click="Nav_Click"/>
-                    <Button x:Name="BtnGenerator" Content="⚙️  Générateurs" Style="{StaticResource MenuButton}" Click="Nav_Click"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="🦊" FontSize="26" VerticalAlignment="Center"/>
+                        <StackPanel Margin="8,0,0,0">
+                            <TextBlock Text="FOX MULTITOOL" FontSize="18" FontWeight="Bold" Foreground="#FF7A00"/>
+                            <Border Background="#21262D" CornerRadius="8" Padding="6,1" HorizontalAlignment="Left" Margin="0,3,0,0">
+                                <TextBlock Text="v0.4.0" FontSize="10" Foreground="#8B949E"/>
+                            </Border>
+                        </StackPanel>
+                    </StackPanel>
+                    <Separator Margin="0,12" Background="#30363D"/>
                 </StackPanel>
-                <TextBlock DockPanel.Dock="Bottom" Text="C# • WPF • .NET 9" FontSize="11" Foreground="#8B949E" Margin="4,0,0,4"/>
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <Expander Header="🌐  Réseau" IsExpanded="True">
+                            <StackPanel>
+                                <Button x:Name="BtnNetwork" Content="Base IP / Ping / Ports" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
+                                <Button x:Name="BtnNmapScan" Content="Nmap Scan" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
+                                <Button x:Name="BtnDns" Content="DNS / NS Lookup" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
+                                <Button x:Name="BtnNetExtra" Content="Tracert / ARP / Netstat" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
+                            </StackPanel>
+                        </Expander>
+                        <Expander Header="🖥️  Système" IsExpanded="False">
+                            <StackPanel>
+                                <Button x:Name="BtnSystem" Content="Infos / Process / Clean" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
+                            </StackPanel>
+                        </Expander>
+                        <Expander Header="🔍  OSINT" IsExpanded="False">
+                            <StackPanel>
+                                <Button x:Name="BtnOsint" Content="IP Lookup" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
+                            </StackPanel>
+                        </Expander>
+                        <Expander Header="⚙️  Générateurs" IsExpanded="False">
+                            <StackPanel>
+                                <Button x:Name="BtnGenerator" Content="Pass / GUID / Hash" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
+                            </StackPanel>
+                        </Expander>
+                    </StackPanel>
+                </ScrollViewer>
             </DockPanel>
         </Border>
 
-        <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto" Padding="20">
+        <ScrollViewer Grid.Column="1" Grid.Row="0" VerticalScrollBarVisibility="Auto" Padding="24">
             <ContentControl x:Name="MainContent"/>
         </ScrollViewer>
+
+        <Border Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Background="#161B22" BorderBrush="#30363D" BorderThickness="0,1,0,0">
+            <StackPanel Orientation="Horizontal" Margin="14,0" VerticalAlignment="Center">
+                <Ellipse x:Name="DotNmap" Width="10" Height="10" Fill="Gray" Margin="0,0,6,0"/>
+                <TextBlock x:Name="TxtStatus" Text="Vérification outils..." FontSize="11" Foreground="#8B949E"/>
+                <TextBlock Text="  •  C# WPF .NET 9" FontSize="11" Foreground="#484F58"/>
+            </StackPanel>
+        </Border>
     </Grid>
 </Window>

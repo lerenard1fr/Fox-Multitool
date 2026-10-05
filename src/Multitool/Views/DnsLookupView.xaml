@@ -1,0 +1,27 @@
+<UserControl x:Class="Multitool.Views.DnsLookupView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <StackPanel>
+        <TextBlock Text="DNS / NS Lookup" FontSize="20" FontWeight="Bold" Margin="0,0,0,4"/>
+        <TextBlock Text="Outil connu : nslookup (inclus Windows)" FontSize="12" Foreground="#8B949E" Margin="0,0,0,12"/>
+        <GroupBox Header="NS / DNS Lookup">
+            <StackPanel Margin="8">
+                <StackPanel Orientation="Horizontal">
+                    <TextBox x:Name="InDns" Width="220" Text="google.com"/>
+                    <Button Style="{StaticResource ActionButton}" Content="NS" Width="50" Margin="8,0,0,0" Click="BtnNs_Click"/>
+                    <Button Style="{StaticResource ActionButton}" Content="MX" Width="50" Margin="8,0,0,0" Click="BtnMx_Click"/>
+                    <Button Style="{StaticResource ActionButton}" Content="TXT" Width="50" Margin="8,0,0,0" Click="BtnTxt_Click"/>
+                    <Button Style="{StaticResource ActionButton}" Content="A" Width="50" Margin="8,0,0,0" Click="BtnA_Click"/>
+                    <Button Style="{StaticResource ActionButton}" Content="AAAA" Width="60" Margin="8,0,0,0" Click="BtnAaaa_Click"/>
+                    <Button Style="{StaticResource ActionButton}" Content="SOA" Width="50" Margin="8,0,0,0" Click="BtnSoa_Click"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+                    <TextBox x:Name="InPtr" Width="220" Text="8.8.8.8"/>
+                    <Button Style="{StaticResource ActionButton}" Content="PTR / Reverse" Width="110" Margin="8,0,0,0" Click="BtnPtr_Click"/>
+                </StackPanel>
+                <TextBox x:Name="OutDns" Margin="0,8,0,0" Height="300" IsReadOnly="True"
+                         AcceptsReturn="True" FontFamily="Consolas" VerticalScrollBarVisibility="Auto"/>
+            </StackPanel>
+        </GroupBox>
+    </StackPanel>
+</UserControl>

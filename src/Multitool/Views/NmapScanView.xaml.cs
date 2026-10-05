@@ -1,27 +1,46 @@
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using Multitool.Services;
 
 namespace Multitool.Views;
 
-public partial class NmapView : UserControl
+public partial class NmapScanView : UserControl
 {
-    public NmapView()
+    public NmapScanView()
     {
         InitializeComponent();
-        Loaded += async (_, _) => TxtNmapStatus.Text = await NmapTools.VersionAsync();
+        Loaded += async (_, _) => await RefreshStatusAsync();
     }
 
-    private async void BtnCheck_Click(object sender, RoutedEventArgs e)
-        => TxtNmapStatus.Text = await NmapTools.VersionAsync();
+    private async Task RefreshStatusAsync()
+    {
+        string v = await NmapTools.VersionAsync();
+        bool ok = NmapTools.FindNmap() is not null;
+        ApplyStatus(ok, v);
+    }
+
+    private void ApplyStatus(bool ok, string detail)
+    {
+        DotStatus.Fill = ok ? Brushes.LimeGreen : Brushes.Red;
+        TxtNmapStatus.Text = ok ? "● INSTALLÉ — prêt à scanner" : "● NON INSTALLÉ";
+        TxtNmapStatus.Foreground = ok
+            ? new SolidColorBrush(Color.FromRgb(0x3F, 0xB9, 0x50))
+            : new SolidColorBrush(Color.FromRgb(0xF8, 0x51, 0x49));
+        TxtNmapDetail.Text = detail.Split('\n')[0];
+        StatusCard.BorderBrush = (Brush)TxtNmapStatus.Foreground;
+        StatusCard.BorderThickness = new Thickness(1);
+    }
+
+    private async void BtnCheck_Click(object sender, RoutedEventArgs e) => await RefreshStatusAsync();
 
     private async void BtnWinget_Click(object sender, RoutedEventArgs e)
     {
         BtnWinget.IsEnabled = false;
         OutInstall.Text = "Installation via winget... (peut durer plusieurs minutes)";
         OutInstall.Text = await ToolInstaller.InstallNmapViaWingetAsync();
-        TxtNmapStatus.Text = await NmapTools.VersionAsync();
+        await RefreshStatusAsync();
         BtnWinget.IsEnabled = true;
     }
 
@@ -32,16 +51,8 @@ public partial class NmapView : UserControl
         OutInstall.Text = $"Téléchargement {ToolInstaller.NmapSetupUrl} ...";
         var prog = new Progress<double>(v => DlProgress.Value = v);
         string result = await ToolInstaller.DownloadNmapSetupAsync(prog);
-        if (File.Exists(result))
-        {
-            DlProgress.Value = 100;
-            OutInstall.Text = ToolInstaller.LaunchInstaller(result);
-        }
-        else
-        {
-            // result contient le message d'erreur
-            OutInstall.Text = result;
-        }
+        OutInstall.Text = File.Exists(result) ? ToolInstaller.LaunchInstaller(result) : result;
+        if (File.Exists(result)) DlProgress.Value = 100;
         BtnDownload.IsEnabled = true;
     }
 
@@ -58,22 +69,5 @@ public partial class NmapView : UserControl
     {
         OutNmap.Text = "Scan en cours... (peut durer 1-2 min)";
         OutNmap.Text = await fn();
-    }
-
-    private async void BtnNs_Click(object sender, RoutedEventArgs e) => await Dns("NS");
-    private async void BtnMx_Click(object sender, RoutedEventArgs e) => await Dns("MX");
-    private async void BtnTxt_Click(object sender, RoutedEventArgs e) => await Dns("TXT");
-    private async void BtnA_Click(object sender, RoutedEventArgs e) => await Dns("A");
-
-    private async void BtnPtr_Click(object sender, RoutedEventArgs e)
-    {
-        OutDns.Text = "Recherche PTR...";
-        OutDns.Text = await DnsTools.ReverseAsync(InDns.Text);
-    }
-
-    private async Task Dns(string type)
-    {
-        OutDns.Text = $"Recherche {type}...";
-        OutDns.Text = await DnsTools.LookupAsync(InDns.Text, type);
     }
 }

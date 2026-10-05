@@ -1,0 +1,28 @@
+<UserControl x:Class="Multitool.Views.NetworkExtraView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <StackPanel>
+        <TextBlock Text="Réseau — Outils Windows" FontSize="20" FontWeight="Bold" Margin="0,0,0,4"/>
+        <TextBlock Text="Outils connus : tracert, arp, ipconfig, netstat, netsh" FontSize="12" Foreground="#8B949E" Margin="0,0,0,12"/>
+        <GroupBox Header="Traceroute (tracert)">
+            <StackPanel Margin="8">
+                <StackPanel Orientation="Horizontal">
+                    <TextBox x:Name="InTracert" Width="220" Text="8.8.8.8"/>
+                    <Button Style="{StaticResource ActionButton}" Content="Traceroute" Width="100" Margin="8,0,0,0" Click="BtnTracert_Click"/>
+                </StackPanel>
+                <TextBox x:Name="OutTracert" Margin="0,8,0,0" Height="160" IsReadOnly="True" AcceptsReturn="True" FontFamily="Consolas"/>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Header="ARP / IPConfig / Netstat / WiFi">
+            <StackPanel Margin="8">
+                <WrapPanel>
+                    <Button Style="{StaticResource ActionButton}" Content="arp -a" Width="90" Margin="0,0,8,8" Click="BtnArp_Click"/>
+                    <Button Style="{StaticResource ActionButton}" Content="ipconfig /all" Width="110" Margin="0,0,8,8" Click="BtnIpConfig_Click"/>
+                    <Button Style="{StaticResource ActionButton}" Content="netstat -ano" Width="110" Margin="0,0,8,8" Click="BtnNetstat_Click"/>
+                    <Button Style="{StaticResource ActionButton}" Content="WiFi profils" Width="100" Margin="0,0,8,8" Click="BtnWifi_Click"/>
+                </WrapPanel>
+                <TextBox x:Name="OutExtra" Height="260" IsReadOnly="True" AcceptsReturn="True" FontFamily="Consolas" VerticalScrollBarVisibility="Auto"/>
+            </StackPanel>
+        </GroupBox>
+    </StackPanel>
+</UserControl>

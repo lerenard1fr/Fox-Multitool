@@ -5,19 +5,19 @@
         <TextBlock Text="Système / Utilitaires" FontSize="20" FontWeight="Bold" Margin="0,0,0,12"/>
         <GroupBox Header="Infos système">
             <StackPanel Margin="8">
-                <Button Content="Afficher" Width="120" HorizontalAlignment="Left" Click="BtnInfo_Click"/>
+                <Button Style="{StaticResource ActionButton}" Content="Afficher" Width="120" HorizontalAlignment="Left" Click="BtnInfo_Click"/>
                 <TextBox x:Name="OutInfo" Margin="0,8,0,0" Height="140" IsReadOnly="True" AcceptsReturn="True"/>
             </StackPanel>
         </GroupBox>
         <GroupBox Header="Processus (top RAM)">
             <StackPanel Margin="8">
-                <Button Content="Lister" Width="120" HorizontalAlignment="Left" Click="BtnProc_Click"/>
+                <Button Style="{StaticResource ActionButton}" Content="Lister" Width="120" HorizontalAlignment="Left" Click="BtnProc_Click"/>
                 <TextBox x:Name="OutProc" Margin="0,8,0,0" Height="180" IsReadOnly="True" AcceptsReturn="True" FontFamily="Consolas"/>
             </StackPanel>
         </GroupBox>
         <GroupBox Header="Nettoyage %TEMP%">
             <StackPanel Margin="8">
-                <Button Content="Nettoyer" Width="120" HorizontalAlignment="Left" Click="BtnClean_Click"/>
+                <Button Style="{StaticResource ActionButton}" Content="Nettoyer" Width="120" HorizontalAlignment="Left" Click="BtnClean_Click"/>
                 <TextBox x:Name="OutClean" Margin="0,8,0,0" Height="60" IsReadOnly="True" AcceptsReturn="True"/>
             </StackPanel>
         </GroupBox>

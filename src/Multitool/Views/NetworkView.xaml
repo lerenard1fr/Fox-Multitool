@@ -5,21 +5,21 @@
         <TextBlock Text="Réseau" FontSize="20" FontWeight="Bold" Margin="0,0,0,12"/>
         <GroupBox Header="Mes IP">
             <StackPanel Margin="8">
-                <Button x:Name="BtnIps" Content="Afficher IP locale + publique" Width="220" HorizontalAlignment="Left" Click="BtnIps_Click"/>
+                <Button Style="{StaticResource ActionButton}" x:Name="BtnIps" Content="Afficher IP locale + publique" Width="220" HorizontalAlignment="Left" Click="BtnIps_Click"/>
                 <TextBox x:Name="OutIps" Margin="0,8,0,0" Height="60" IsReadOnly="True" TextWrapping="Wrap" AcceptsReturn="True"/>
             </StackPanel>
         </GroupBox>
         <GroupBox Header="Ping">
             <StackPanel Margin="8" Orientation="Horizontal">
                 <TextBox x:Name="InPing" Width="200" Text="8.8.8.8"/>
-                <Button Content="Ping" Margin="8,0,0,0" Width="80" Click="BtnPing_Click"/>
+                <Button Style="{StaticResource ActionButton}" Content="Ping" Margin="8,0,0,0" Width="80" Click="BtnPing_Click"/>
                 <TextBox x:Name="OutPing" Margin="8,0,0,0" Width="350" IsReadOnly="True"/>
             </StackPanel>
         </GroupBox>
         <GroupBox Header="DNS Lookup">
             <StackPanel Margin="8" Orientation="Horizontal">
                 <TextBox x:Name="InDns" Width="200" Text="google.com"/>
-                <Button Content="Résoudre" Margin="8,0,0,0" Width="80" Click="BtnDns_Click"/>
+                <Button Style="{StaticResource ActionButton}" Content="Résoudre" Margin="8,0,0,0" Width="80" Click="BtnDns_Click"/>
                 <TextBox x:Name="OutDns" Margin="8,0,0,0" Width="350" Height="60" IsReadOnly="True" AcceptsReturn="True"/>
             </StackPanel>
         </GroupBox>
@@ -27,7 +27,7 @@
             <StackPanel Margin="8">
                 <StackPanel Orientation="Horizontal">
                     <TextBox x:Name="InScan" Width="200" Text="127.0.0.1"/>
-                    <Button Content="Scanner" Margin="8,0,0,0" Width="80" Click="BtnScan_Click"/>
+                    <Button Style="{StaticResource ActionButton}" Content="Scanner" Margin="8,0,0,0" Width="80" Click="BtnScan_Click"/>
                 </StackPanel>
                 <TextBox x:Name="OutScan" Margin="0,8,0,0" Height="120" IsReadOnly="True" AcceptsReturn="True"/>
             </StackPanel>
