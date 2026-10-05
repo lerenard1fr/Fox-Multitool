@@ -31,7 +31,11 @@ if ($LASTEXITCODE -ne 0) { Pop-Location; Write-Host "candle a echoue"; exit 1 }
 if ($LASTEXITCODE -ne 0) { Pop-Location; Write-Host "light a echoue"; exit 1 }
 Pop-Location
 
-# 3. ZIP du portable
+# 3. ZIP du portable (nettoye : jamais de settings/logs/data/tools perso dedans)
+Remove-Item (Join-Path $dist "settings.json") -Force -ErrorAction SilentlyContinue
+Get-ChildItem $dist -Directory | Where-Object { $_.Name -in @("logs", "data", "tools") } | ForEach-Object {
+  Get-ChildItem $_.FullName -Recurse -File -ErrorAction SilentlyContinue | Remove-Item -Force -ErrorAction SilentlyContinue
+}
 $zip = Join-Path $release "FoxMultitool-$version-portable.zip"
 if (Test-Path $zip) { Remove-Item $zip -Force }
 Compress-Archive -Path (Join-Path $dist "*") -DestinationPath $zip
