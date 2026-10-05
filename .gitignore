@@ -485,3 +485,9 @@ $RECYCLE.BIN/
 
 # FoxMultitool portable build output (gros binaire, a partager via Release, pas via git)
 dist/
+
+# Release artifacts v1.0.0 (MSI + ZIP joints a la GitHub Release, pas via git)
+release/
+
+# WiX intermediates
+installer/obj/

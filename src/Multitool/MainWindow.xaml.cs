@@ -12,10 +12,17 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
         RefreshTexts();
-        Lang.Changed += RefreshTexts;
+        Lang.Changed += OnLanguageChanged;
         MainContent.Content = new NetworkView();
         Highlight(BtnNetwork);
         Loaded += MainWindow_Loaded;
+    }
+
+    private void OnLanguageChanged()
+    {
+        RefreshTexts();
+        if (_tools.Count > 0) ApplyStatus();
+        else TxtStatus.Text = Lang.T("status_checking");
     }
 
     private void RefreshTexts()
@@ -41,18 +48,25 @@ public partial class MainWindow : Window
         BtnGenerator.Content = Lang.T("nav_gen");
     }
 
+    private List<ToolState> _tools = new();
+
     private async void MainWindow_Loaded(object sender, RoutedEventArgs e)
     {
         TxtStatus.Text = Lang.T("status_checking");
         await Task.Run(() =>
         {
             var tools = ToolStatus.CheckAll();
-            Dispatcher.Invoke(() => ApplyStatus(tools));
+            Dispatcher.Invoke(() =>
+            {
+                _tools = tools;
+                ApplyStatus();
+            });
         });
     }
 
-    private void ApplyStatus(List<ToolState> tools)
+    private void ApplyStatus()
     {
+        var tools = _tools;
         var nmap = tools.FirstOrDefault(t => t.Name == "nmap");
         bool ok = nmap?.Installed == true;
         DotNmap.Fill = ok ? Brushes.LimeGreen : Brushes.Red;
@@ -63,7 +77,6 @@ public partial class MainWindow : Window
         TxtStatus.Foreground = ok
             ? (Brush)FindResource("GreenFg")
             : (Brush)FindResource("RedFg");
-        Lang.Changed += () => ApplyStatus(tools);
     }
 
     private void Nav_Click(object sender, RoutedEventArgs e)

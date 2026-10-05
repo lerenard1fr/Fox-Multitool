@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Fox Multitool v1.0.0 — installeur per-user (pas d'elevation requise).
+     Build via installer/build-msi.ps1 (candle + light de WiX v3.11). -->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product Id="*" Name="Fox Multitool" Language="1033" Version="1.0.0"
+           Manufacturer="FoxMultitool" UpgradeCode="E60802A0-F38C-4F7B-8B47-6FCBC22D2584">
+    <Package InstallerVersion="500" Compressed="yes" InstallScope="perUser" InstallPrivileges="limited" />
+    <MediaTemplate EmbedCab="yes" />
+    <MajorUpgrade DowngradeErrorMessage="Une version plus récente est déjà installée." />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="LocalAppDataFolder">
+        <Directory Id="UserPrograms" Name="Programs">
+          <Directory Id="INSTALLFOLDER" Name="FoxMultitool">
+            <Component Id="MainExe" Guid="BEC1E1BA-D4CF-4C7C-8429-1C5989F98A48">
+              <File Id="FoxExe" Source="$(var.SourceDir)\FoxMultitool.exe" KeyPath="no" />
+              <RegistryValue Root="HKCU" Key="Software\FoxMultitool" Name="installed"
+                             Type="integer" Value="1" KeyPath="yes" />
+              <Shortcut Id="StartMenuShortcut" Directory="AppProgramsFolder" Name="Fox Multitool"
+                        Target="[INSTALLFOLDER]FoxMultitool.exe" Icon="FoxIcon" WorkingDirectory="INSTALLFOLDER" />
+              <Shortcut Id="DesktopShortcut" Directory="DesktopFolder" Name="Fox Multitool"
+                        Target="[INSTALLFOLDER]FoxMultitool.exe" Icon="FoxIcon" WorkingDirectory="INSTALLFOLDER" />
+              <RemoveFolder Id="CleanInstallFolder" Directory="INSTALLFOLDER" On="uninstall" />
+              <RemoveFolder Id="CleanUserPrograms" Directory="UserPrograms" On="uninstall" />
+              <RemoveFolder Id="CleanAppPrograms" Directory="AppProgramsFolder" On="uninstall" />
+            </Component>
+          </Directory>
+        </Directory>
+      </Directory>
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="AppProgramsFolder" Name="Fox Multitool" />
+      </Directory>
+      <Directory Id="DesktopFolder" />
+    </Directory>
+
+    <Icon Id="FoxIcon" SourceFile="..\src\Multitool\Assets\fox.ico" />
+    <Property Id="ARPPRODUCTICON" Value="FoxIcon" />
+
+    <Feature Id="Main" Title="Fox Multitool" Level="1">
+      <ComponentRef Id="MainExe" />
+    </Feature>
+
+    <UIRef Id="WixUI_Minimal" />
+  </Product>
+</Wix>

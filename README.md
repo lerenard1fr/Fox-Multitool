@@ -29,7 +29,15 @@ dist/
 Zippe ce dossier, mets-le sur clé USB, envoie-le à un pote ou en Release GitHub : il se lance sur Windows 10/11 x64 sans rien installer, et tout (réglages, logs, exports, outils) reste dedans.
 Note : Windows SmartScreen peut afficher un avertissement (exe non signé) → "Informations complémentaires" → "Exécuter quand même".
 
-## Modules v0.5.0 — menu style Kali + statut couleur + options
+## Release v1.0.0 (MSI + ZIP)
+```powershell
+powershell -ExecutionPolicy Bypass -File ./installer/build-msi.ps1
+```
+Produit dans `release/` (ignoré par git, à joindre à la GitHub Release) :
+- `FoxMultitool-1.0.0.msi` : installeur per-user, sans admin — `%LocalAppData%\Programs\FoxMultitool`, raccourcis menu Démarrer + bureau. L'app bascule ses réglages/données vers `%LocalAppData%\FoxMultitool` si le dossier d'install n'est pas inscriptible.
+- `FoxMultitool-1.0.0-portable.zip` : contenu de `dist/` à dézipper et lancer.
+
+## Modules v1.0.0 — menu style Kali + statut couleur + options
 - **🔎 Information Gathering** : Base IP / Ping / Ports, Nmap Scan (`-F -sV -O -A -sn -p` + install + export `data/`), DNS / NS Lookup (`nslookup` : NS MX TXT A AAAA SOA PTR), Tracert / ARP / Netstat, IP Lookup, Amass, theHarvester
 - **🛡️ Vulnerability Analysis** : Nessus, Nikto
 - **🌍 Web Application Analysis** : Burp Suite, sqlmap, Gobuster, ffuf
