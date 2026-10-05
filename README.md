@@ -65,5 +65,9 @@ publish-portable.ps1     # produit dist/FoxMultitool/ (dossier portable)
 - `nmap` optionnel : install auto via l'app (winget ou setup dans `tools/`) ou https://nmap.org/download.html
 - `nslookup`, `tracert`, `arp`, `ipconfig`, `netstat`, `netsh` inclus Windows
 
+## Antivirus / SmartScreen (sans certificat payant)
+- L'exe et le MSI sont **auto-signés** (`CN=FoxMultitool`, script `installer/selfsign.ps1`, intégré à `build-msi.ps1`) : identité stable + preuve d'intégrité, rebuild automatique à chaque release.
+- Limite honnête : SmartScreen/Defender avertiront quand même (pas de réputation). La vraie solution gratuite : soumettre les 2 fichiers à Microsoft (compte gratuit) sur https://www.microsoft.com/en-us/wdsi/filesubmission → "Software developer" → whitelist Defender. La réputation SmartScreen monte avec les téléchargements.
+
 ## Notes
 Outils défensifs / admin sys uniquement. Pas de fonction offensive.

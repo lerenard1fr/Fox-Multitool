@@ -16,6 +16,10 @@ $dist = Join-Path $root "dist"
 $release = Join-Path $root "release"
 New-Item -ItemType Directory -Force -Path $release | Out-Null
 
+# 1b. Auto-signature de l'exe AVANT MSI/ZIP (le MSI embarque l'exe signe)
+& powershell -ExecutionPolicy Bypass -File (Join-Path $PSScriptRoot "selfsign.ps1") `
+  -Files (Join-Path $dist "FoxMultitool.exe")
+
 # 2. MSI (WiX v3.11, per-user, sans elevation)
 $candle = Join-Path $wixBin "candle.exe"
 $light = Join-Path $wixBin "light.exe"
@@ -30,6 +34,10 @@ if ($LASTEXITCODE -ne 0) { Pop-Location; Write-Host "candle a echoue"; exit 1 }
 & $light obj\Product.wixobj -ext WixUIExtension -sw1076 -out (Join-Path $release "FoxMultitool-$version.msi")
 if ($LASTEXITCODE -ne 0) { Pop-Location; Write-Host "light a echoue"; exit 1 }
 Pop-Location
+
+# 2b. Auto-signature du MSI
+& powershell -ExecutionPolicy Bypass -File (Join-Path $PSScriptRoot "selfsign.ps1") `
+  -Files (Join-Path $release "FoxMultitool-$version.msi")
 
 # 3. ZIP du portable (nettoye : jamais de settings/logs/data/tools perso dedans)
 Remove-Item (Join-Path $dist "settings.json") -Force -ErrorAction SilentlyContinue

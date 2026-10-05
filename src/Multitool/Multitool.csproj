@@ -9,6 +9,9 @@
     <AssemblyName>FoxMultitool</AssemblyName>
     <Product>Fox Multitool</Product>
     <Title>Fox Multitool</Title>
+    <Company>FoxMultitool</Company>
+    <Copyright>Copyright © 2026 FoxMultitool</Copyright>
+    <Description>Fox Multitool — Windows toolbox (network, security, utilities)</Description>
     <Version>1.0.0</Version>
     <ApplicationIcon>Assets\fox.ico</ApplicationIcon>
   </PropertyGroup>
