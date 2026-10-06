@@ -38,14 +38,15 @@ Produit dans `release/` (ignoré par git, à joindre à la GitHub Release) :
 - `FoxMultitool-1.0.0-portable.zip` : contenu de `dist/` à dézipper et lancer.
 
 ## Modules v1.0.0 — menu style Kali + statut couleur + options
-- **🔎 Information Gathering** : Base IP / Ping / Ports, Nmap Scan (`-F -sV -O -A -sn -p` + install + export `data/`), DNS / NS Lookup (`nslookup` : NS MX TXT A AAAA SOA PTR), Tracert / ARP / Netstat, IP Lookup, Amass, theHarvester
+- **🔎 Information Gathering** : Base IP / Ping / Ports, Nmap Scan (`-F -sV -O -A -sn -p` + install + export `data/`), DNS / NS Lookup (`nslookup` : NS MX TXT A AAAA SOA PTR), Tracert / ARP / Netstat, IP Lookup, Amass, theHarvester, **Host Discovery** (ping sweep CIDR natif), **Dorking** (requêtes prêtes → navigateur)
 - **🛡️ Vulnerability Analysis** : Nessus, Nikto
-- **🌍 Web Application Analysis** : Burp Suite, sqlmap, Gobuster, ffuf
+- **🌍 Web Application Analysis** : Burp Suite, sqlmap, Gobuster, ffuf, **URL Crawler** (découverte de liens + export), **Website Cloner** (miroir léger → `data/`)
 - **🔑 Password Attacks** : John the Ripper, Hashcat, Hydra
 - **📡 Wireless Attacks** : Aircrack-ng
 - **👃 Sniffing & Spoofing** : Wireshark, Bettercap, Responder, Netcat (ncat)
 - **💥 Exploitation Tools** : Metasploit
 - **🕵️ Social Engineering** : Maltego, Sherlock
+- **🔎 Lookup** : **Email** (format + MX + Gravatar), **Phone** (libphonenumber hors-ligne : validité, région, opérateur), **Instagram** (ouverture profil), **Wallet** (solde BTC via blockstream.info), **Metadata** (lecture + suppression EXIF/IPTC/XMP)
 - **💬 Discord** : envoi via webhook (le vôtre), infos webhook, décodage d'ID (date de création : user, voc, serveur...), infos d'invitation — sans token
 - **🖥️ Système** : infos OS/machine, top process RAM, nettoyage %TEMP%
 - **⚙️ Générateurs** : mot de passe, GUID, Base64, SHA256/MD5
@@ -56,8 +57,8 @@ Produit dans `release/` (ignoré par git, à joindre à la GitHub Release) :
 ```
 src/Multitool/
   MainWindow.xaml (+.cs)  # navigation Expanders
-  Views/                 # NetworkView, NmapScanView, DnsLookupView, NetworkExtraView, SystemView, OsintView, GeneratorView, SettingsView, SecurityView, DiscordView
-  Services/              # NetworkTools, NmapTools, DnsTools, NetExtraTools, SystemTools, OsintTools, GeneratorTools, ToolInstaller, ToolStatus, SecurityTools, DiscordTools, AppSettings, AppPaths, Logger, Lang, ThemeManager
+  Views/                 # NetworkView, NmapScanView, DnsLookupView, NetworkExtraView, SystemView, OsintView, GeneratorView, SettingsView, SecurityView, DiscordView, CrawlerView, HostDiscoveryView, DorkingView, EmailView, PhoneView, InstagramView, WalletView, MetadataView, ClonerView
+  Services/              # NetworkTools, NmapTools, DnsTools, NetExtraTools, SystemTools, OsintTools, GeneratorTools, ToolInstaller, ToolStatus, SecurityTools, DiscordTools, LookupTools, PhoneTools, MetaTools, AppSettings, AppPaths, Logger, Lang, ThemeManager
   Themes/                # Dark.xaml, Light.xaml
 publish-portable.ps1     # produit dist/FoxMultitool/ (dossier portable)
 ```

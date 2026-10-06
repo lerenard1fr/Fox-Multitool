@@ -1,0 +1,22 @@
+<UserControl x:Class="Multitool.Views.MetadataView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <StackPanel>
+        <TextBlock Text="File Metadata Scanner / Deleter" FontSize="22" FontWeight="Bold" Margin="0,0,0,4"/>
+        <TextBlock x:Name="TxtSub" FontSize="12" Foreground="#8B949E" Margin="0,0,0,12" TextWrapping="Wrap"/>
+        <GroupBox x:Name="GrpMain" Header="File">
+            <StackPanel Margin="10">
+                <StackPanel Orientation="Horizontal">
+                    <TextBox x:Name="InFile" Width="380" IsReadOnly="True"/>
+                    <Button Style="{StaticResource ActionButton}" x:Name="BtnPick" Content="..." Width="50" Margin="8,0,0,0" Click="BtnPick_Click"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+                    <Button Style="{StaticResource ActionButton}" x:Name="BtnScan" Content="Scan" Width="110" Click="BtnScan_Click"/>
+                    <Button Style="{StaticResource SecondaryButton}" x:Name="BtnClean" Content="Delete" Width="110" Margin="8,0,0,0" Click="BtnClean_Click"/>
+                </StackPanel>
+                <TextBox x:Name="OutMeta" Margin="0,8,0,0" Height="300" IsReadOnly="True" AcceptsReturn="True" FontFamily="Consolas" VerticalScrollBarVisibility="Auto"/>
+                <TextBlock x:Name="TxtClean" Margin="0,8,0,0" FontSize="11" Foreground="#8B949E" TextWrapping="Wrap"/>
+            </StackPanel>
+        </GroupBox>
+    </StackPanel>
+</UserControl>

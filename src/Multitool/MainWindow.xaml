@@ -43,6 +43,8 @@
                                 <Button x:Name="BtnOsint" Content="IP Lookup" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
                                 <Button x:Name="BtnSecAmass" Content="Amass" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
                                 <Button x:Name="BtnSecHarvester" Content="theHarvester" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
+                                <Button x:Name="BtnHostdis" Content="Host Discovery" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
+                                <Button x:Name="BtnDorking" Content="Dorking" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
                             </StackPanel>
                         </Expander>
                         <Expander x:Name="ExpVuln" Header="🛡️  Vulnerability Analysis" IsExpanded="False">
@@ -57,6 +59,8 @@
                                 <Button x:Name="BtnSecSqlmap" Content="sqlmap" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
                                 <Button x:Name="BtnSecGobuster" Content="Gobuster" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
                                 <Button x:Name="BtnSecFfuf" Content="ffuf" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
+                                <Button x:Name="BtnCrawler" Content="URL Crawler" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
+                                <Button x:Name="BtnCloner" Content="Website Cloner" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
                             </StackPanel>
                         </Expander>
                         <Expander x:Name="ExpPass" Header="🔑  Password Attacks" IsExpanded="False">
@@ -88,6 +92,15 @@
                             <StackPanel>
                                 <Button x:Name="BtnSecMaltego" Content="Maltego" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
                                 <Button x:Name="BtnSecSherlock" Content="Sherlock" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
+                            </StackPanel>
+                        </Expander>
+                        <Expander x:Name="ExpLookup" Header="🔎  Lookup" IsExpanded="False">
+                            <StackPanel>
+                                <Button x:Name="BtnEmail" Content="Email" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
+                                <Button x:Name="BtnPhone" Content="Phone" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
+                                <Button x:Name="BtnInstagram" Content="Instagram" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
+                                <Button x:Name="BtnWallet" Content="Wallet" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
+                                <Button x:Name="BtnMeta" Content="Metadata" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
                             </StackPanel>
                         </Expander>
                         <Expander x:Name="ExpDis" Header="💬  Discord" IsExpanded="False">

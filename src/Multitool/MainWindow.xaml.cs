@@ -35,6 +35,7 @@ public partial class MainWindow : Window
         ExpSniff.Header = Lang.T("menu_sniff");
         ExpExploit.Header = Lang.T("menu_exploit");
         ExpSocial.Header = Lang.T("menu_social");
+        ExpLookup.Header = Lang.T("menu_lookup");
         ExpDis.Header = Lang.T("menu_discord");
         ExpSystem.Header = Lang.T("menu_system");
         ExpGen.Header = Lang.T("menu_generators");
@@ -96,6 +97,15 @@ public partial class MainWindow : Window
             nameof(BtnOsint) => new OsintView(),
             nameof(BtnGenerator) => new GeneratorView(),
             nameof(BtnDiscord) => new DiscordView(),
+            nameof(BtnCrawler) => new CrawlerView(),
+            nameof(BtnHostdis) => new HostDiscoveryView(),
+            nameof(BtnDorking) => new DorkingView(),
+            nameof(BtnEmail) => new EmailView(),
+            nameof(BtnPhone) => new PhoneView(),
+            nameof(BtnInstagram) => new InstagramView(),
+            nameof(BtnWallet) => new WalletView(),
+            nameof(BtnMeta) => new MetadataView(),
+            nameof(BtnCloner) => new ClonerView(),
             nameof(BtnSecHub) => new SecurityView(),
             nameof(BtnSettings) => new SettingsView(),
             nameof(BtnSecAmass) => new SecurityView("amass"),
@@ -124,7 +134,9 @@ public partial class MainWindow : Window
     private void Highlight(Button active)
     {
         foreach (var b in new Button[] { BtnNetwork, BtnNmapScan, BtnDns, BtnNetExtra, BtnSystem, BtnOsint,
-                     BtnGenerator, BtnDiscord, BtnSecHub, BtnSettings, BtnSecAmass, BtnSecHarvester, BtnSecNessus,
+                     BtnGenerator, BtnDiscord, BtnCrawler, BtnHostdis, BtnDorking, BtnEmail, BtnPhone,
+                     BtnInstagram, BtnWallet, BtnMeta, BtnCloner,
+                     BtnSecHub, BtnSettings, BtnSecAmass, BtnSecHarvester, BtnSecNessus,
                      BtnSecNikto, BtnSecBurp, BtnSecSqlmap, BtnSecGobuster, BtnSecFfuf, BtnSecJohn,
                      BtnSecHashcat, BtnSecHydra, BtnSecAircrack, BtnSecWireshark, BtnSecBettercap,
                      BtnSecResponder, BtnSecNcat, BtnSecMetasploit, BtnSecMaltego, BtnSecSherlock })

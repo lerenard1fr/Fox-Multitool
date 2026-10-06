@@ -20,4 +20,10 @@
     <Resource Include="Assets\fox.png" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="libphonenumber-csharp" Version="9.0.40" />
+    <PackageReference Include="MetadataExtractor" Version="2.9.3" />
+    <PackageReference Include="System.Drawing.Common" Version="9.0.0" />
+  </ItemGroup>
+
 </Project>

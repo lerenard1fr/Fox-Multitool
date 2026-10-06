@@ -754,12 +754,15 @@ public static partial class Lang
     public static string T(string key)
         => Strings[Current].TryGetValue(key, out var v) ? v
         : Extra.TryGetValue(Current, out var xd) && xd.TryGetValue(key, out var xv) ? xv
+        : Extra2.TryGetValue(Current, out var x2) && x2.TryGetValue(key, out var xv2) ? xv2
         : Strings["en"].TryGetValue(key, out var e) ? e
-        : Extra["en"].TryGetValue(key, out var xe) ? xe : key;
+        : Extra["en"].TryGetValue(key, out var xe) ? xe
+        : Extra2["en"].TryGetValue(key, out var xe2) ? xe2 : key;
 
     public static string TFor(string lang, string key)
         => Strings.TryGetValue(lang, out var d) && d.TryGetValue(key, out var v) ? v
         : Extra.TryGetValue(lang, out var xd) && xd.TryGetValue(key, out var xv) ? xv
+        : Extra2.TryGetValue(lang, out var x2) && x2.TryGetValue(key, out var xv2) ? xv2
         : T(key);
 
     public static bool IsPlaceholder(string text, string key)
