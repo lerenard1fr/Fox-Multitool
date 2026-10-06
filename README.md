@@ -46,6 +46,7 @@ Produit dans `release/` (ignoré par git, à joindre à la GitHub Release) :
 - **👃 Sniffing & Spoofing** : Wireshark, Bettercap, Responder, Netcat (ncat)
 - **💥 Exploitation Tools** : Metasploit
 - **🕵️ Social Engineering** : Maltego, Sherlock
+- **💬 Discord** : envoi via webhook (le vôtre), infos webhook, décodage d'ID (date de création : user, voc, serveur...), infos d'invitation — sans token
 - **🖥️ Système** : infos OS/machine, top process RAM, nettoyage %TEMP%
 - **⚙️ Générateurs** : mot de passe, GUID, Base64, SHA256/MD5
 - **⚙️ Options** : thème System (défaut, suit Windows) / Dark / Light + langue (14 langues, défaut English), sauvegardé dans `settings.json` à côté de l'exe
@@ -55,8 +56,8 @@ Produit dans `release/` (ignoré par git, à joindre à la GitHub Release) :
 ```
 src/Multitool/
   MainWindow.xaml (+.cs)  # navigation Expanders
-  Views/                 # NetworkView, NmapScanView, DnsLookupView, NetworkExtraView, SystemView, OsintView, GeneratorView, SettingsView, SecurityView
-  Services/              # NetworkTools, NmapTools, DnsTools, NetExtraTools, SystemTools, OsintTools, GeneratorTools, ToolInstaller, ToolStatus, SecurityTools, AppSettings, AppPaths, Logger, Lang, ThemeManager
+  Views/                 # NetworkView, NmapScanView, DnsLookupView, NetworkExtraView, SystemView, OsintView, GeneratorView, SettingsView, SecurityView, DiscordView
+  Services/              # NetworkTools, NmapTools, DnsTools, NetExtraTools, SystemTools, OsintTools, GeneratorTools, ToolInstaller, ToolStatus, SecurityTools, DiscordTools, AppSettings, AppPaths, Logger, Lang, ThemeManager
   Themes/                # Dark.xaml, Light.xaml
 publish-portable.ps1     # produit dist/FoxMultitool/ (dossier portable)
 ```

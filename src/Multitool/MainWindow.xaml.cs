@@ -35,6 +35,7 @@ public partial class MainWindow : Window
         ExpSniff.Header = Lang.T("menu_sniff");
         ExpExploit.Header = Lang.T("menu_exploit");
         ExpSocial.Header = Lang.T("menu_social");
+        ExpDis.Header = Lang.T("menu_discord");
         ExpSystem.Header = Lang.T("menu_system");
         ExpGen.Header = Lang.T("menu_generators");
         BtnSettings.Content = "⚙️  " + Lang.T("menu_options");
@@ -46,6 +47,7 @@ public partial class MainWindow : Window
         BtnSystem.Content = Lang.T("nav_sys");
         BtnOsint.Content = Lang.T("nav_osint");
         BtnGenerator.Content = Lang.T("nav_gen");
+        BtnDiscord.Content = Lang.T("nav_discord");
     }
 
     private List<ToolState> _tools = new();
@@ -93,6 +95,7 @@ public partial class MainWindow : Window
             nameof(BtnSystem) => new SystemView(),
             nameof(BtnOsint) => new OsintView(),
             nameof(BtnGenerator) => new GeneratorView(),
+            nameof(BtnDiscord) => new DiscordView(),
             nameof(BtnSecHub) => new SecurityView(),
             nameof(BtnSettings) => new SettingsView(),
             nameof(BtnSecAmass) => new SecurityView("amass"),
@@ -121,7 +124,7 @@ public partial class MainWindow : Window
     private void Highlight(Button active)
     {
         foreach (var b in new Button[] { BtnNetwork, BtnNmapScan, BtnDns, BtnNetExtra, BtnSystem, BtnOsint,
-                     BtnGenerator, BtnSecHub, BtnSettings, BtnSecAmass, BtnSecHarvester, BtnSecNessus,
+                     BtnGenerator, BtnDiscord, BtnSecHub, BtnSettings, BtnSecAmass, BtnSecHarvester, BtnSecNessus,
                      BtnSecNikto, BtnSecBurp, BtnSecSqlmap, BtnSecGobuster, BtnSecFfuf, BtnSecJohn,
                      BtnSecHashcat, BtnSecHydra, BtnSecAircrack, BtnSecWireshark, BtnSecBettercap,
                      BtnSecResponder, BtnSecNcat, BtnSecMetasploit, BtnSecMaltego, BtnSecSherlock })

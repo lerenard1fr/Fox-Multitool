@@ -90,6 +90,11 @@
                                 <Button x:Name="BtnSecSherlock" Content="Sherlock" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
                             </StackPanel>
                         </Expander>
+                        <Expander x:Name="ExpDis" Header="💬  Discord" IsExpanded="False">
+                            <StackPanel>
+                                <Button x:Name="BtnDiscord" Content="Webhook + ID lookup" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
+                            </StackPanel>
+                        </Expander>
                         <Expander x:Name="ExpSystem" Header="🖥️  System" IsExpanded="False">
                             <StackPanel>
                                 <Button x:Name="BtnSystem" Content="Info / Process / Clean" Style="{StaticResource SubMenuButton}" Click="Nav_Click"/>
